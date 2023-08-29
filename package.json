@@ -1,0 +1,32 @@
+{
+  "name": "meddit",
+  "version": "1.0.0",
+  "description": "MERN stack reddit clone for MMU students",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronylee11/meddit.git"
+  },
+  "keywords": [
+    "mern",
+    "full-stack",
+    "mongodb",
+    "expressjs",
+    "reactjs",
+    "nodejs"
+  ],
+  "author": "rony",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ronylee11/meddit/issues"
+  },
+  "homepage": "https://github.com/ronylee11/meddit#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "path": "^0.12.7"
+  }
+}
