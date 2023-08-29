@@ -133,5 +133,14 @@ table {
 /*------------*/
 
 body {
-  background-color: gray;
+  background-color: #1e2132;
+  color: white;
+  font-family: "Black Ops One", cursive;
+}
+
+#canvas {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
