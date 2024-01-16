@@ -3,6 +3,15 @@ const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
 const path = require("path");
 const feed = require("./controllers/feeds");
+const mongoose = require("mongoose"); // connect database
+
+mongoose.set("strictQuery", false); // disable deprecation warning
+mongoose.connect("mongodb://127.0.0.1:27017/Meddit"); // 27017 is the default mongodb port
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+  console.log("Database connected!");
+});
 
 const app = express();
 
