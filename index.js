@@ -2,7 +2,7 @@ const express = require("express");
 const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
 const path = require("path");
-const feed = require("./controllers/feed");
+const feed = require("./controllers/feeds");
 
 const app = express();
 
