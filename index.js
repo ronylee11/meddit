@@ -21,6 +21,10 @@ app.use(express.static(path.join(__dirname, "public"))); // connect css & js fil
 
 app.get("/", feed.home);
 
+app.get("/feeds", feed.index);
+
+app.get("/feeds/:id", feed.show);
+
 app.listen(3000, () => {
   console.log("App is running on 3000!");
 });

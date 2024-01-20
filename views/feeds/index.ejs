@@ -1,0 +1,12 @@
+<%layout('layouts/boilerplate')%>
+
+<h1>This is index Page</h1>
+<% for (const feed of feeds) {%>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><%= feed.title %></h5>
+    <p class="card-text"><%= feed.description %></p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+<% } %>
