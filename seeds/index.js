@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Feed = require("../models/feed");
+const faker = require("faker");
 
 mongoose.connect("mongodb://localhost:27017/Meddit");
 
@@ -14,9 +15,8 @@ const seedDB = async () => {
 
   for (i = 0; i < 10; i++) {
     const feed = new Feed({
-      title: `Feed ${i}`,
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem.",
+      title: faker.random.words(2),
+      description: faker.hacker.phrase(),
     });
     await feed.save();
   }
