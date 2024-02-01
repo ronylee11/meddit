@@ -10,6 +10,6 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.show = async (req, res) => {
-  const feed = await Feet.findById(req.params.id);
+  const feed = await Feed.findById(req.params.id);
   res.render("feeds/show", { feed });
 };
