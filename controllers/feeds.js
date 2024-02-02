@@ -13,3 +13,8 @@ module.exports.show = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
   res.render("feeds/show", { feed });
 };
+
+module.exports.edit = async (req, res) => {
+  const feed = await Feed.findById(req.params.id);
+  res.render("feeds/edit", { feed });
+};

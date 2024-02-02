@@ -23,6 +23,8 @@ app.get("/", feed.home);
 
 app.get("/feeds", feed.index);
 
+app.get("/feeds/:id/edit", feed.edit);
+
 app.get("/feeds/:id", feed.show);
 
 app.listen(3000, () => {
