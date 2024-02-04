@@ -18,3 +18,9 @@ module.exports.edit = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
   res.render("feeds/edit", { feed });
 };
+
+module.exports.update = async (req, res) => {
+  const { id } = req.params;
+  const feed = await Feed.findByIdAndUpdate(id, { ...req.body });
+  res.redirect(`/feeds/${id}`);
+};

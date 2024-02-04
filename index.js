@@ -18,12 +18,15 @@ const app = express();
 app.engine("ejs", ejsMate); // use ejs-mate for layout
 app.set("view engine", "ejs"); // use .ejs files for frontend
 app.use(express.static(path.join(__dirname, "public"))); // connect css & js files in /public
+app.use(express.urlencoded({ extended: true })); //enable req.body to be parsed
 
 app.get("/", feed.home);
 
 app.get("/feeds", feed.index);
 
 app.get("/feeds/:id/edit", feed.edit);
+
+app.post("/feeds/:id", feed.update);
 
 app.get("/feeds/:id", feed.show);
 
