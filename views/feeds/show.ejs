@@ -4,6 +4,11 @@
   <h1>This is show Page</h1>
   <h2><%= feed.title %></h2>
   <h3><%= feed.description %></h3>
-  <a href="/feeds" class="btn btn-secondary">Back</a>
-  <a href="/feeds/<%=feed.id%>/edit" class="btn btn-warning">Edit</a>
+  <div class="d-flex">
+    <a href="/feeds" class="btn btn-secondary m-2">Back</a>
+    <a href="/feeds/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a>
+    <form action="/feeds/<%=feed.id%>?_method=DELETE" method="POST">
+      <button type="submit" class="btn btn-danger m-2">Delete</button>
+    </form>
+  </div>
 </div>

@@ -24,3 +24,9 @@ module.exports.update = async (req, res) => {
   const feed = await Feed.findByIdAndUpdate(id, { ...req.body });
   res.redirect(`/feeds/${id}`);
 };
+
+module.exports.destroy = async (req, res) => {
+  const { id } = req.params;
+  await Feed.findByIdAndDelete(id);
+  res.redirect("/feeds");
+};
