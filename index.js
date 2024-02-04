@@ -4,6 +4,7 @@ const ejsMate = require("ejs-mate");
 const path = require("path");
 const methodOverride = require("method-override");
 const feed = require("./controllers/feeds");
+const user = require("./controllers/users");
 const mongoose = require("mongoose"); // connect database
 
 mongoose.set("strictQuery", false); // disable deprecation warning
@@ -33,6 +34,14 @@ app.post("/feeds/:id", feed.update);
 app.delete("/feeds/:id", feed.destroy);
 
 app.get("/feeds/:id", feed.show);
+
+app.get("/users/login", function (req, res) {res.render("user/login");});
+
+app.get("/users/register", function (req, res) {res.render("user/register");});
+
+app.post("/users/auth", user.auth);
+
+app.post("/users/createUser", user.createUser)
 
 app.listen(3000, () => {
   console.log("App is running on 3000!");

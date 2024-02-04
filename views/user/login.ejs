@@ -1,0 +1,9 @@
+<%layout('layouts/boilerplate')%>
+
+<div class="container border rounded p-2">
+    <form action="/users/auth" method="post">
+      <input name="username" type="text" placeholder="Username" /> <br />
+      <input name="password" type="password" placeholder="Password" /><br />
+      <button type="submit" class="btn btn-default">Login</button>
+    </form>
+</div>
