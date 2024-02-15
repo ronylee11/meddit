@@ -1,7 +1,6 @@
 <%layout('layouts/boilerplate')%>
 
 <div class="container border rounded p-2">
-  <h1>This is edit Page</h1>
   <form action="/feeds/<%=feed.id%>" method="post">
     <label for="title">Title: </label>
     <input type="text" name="title" value="<%= feed.title %>" />
