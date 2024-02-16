@@ -3,7 +3,7 @@
 <div
   class="container text-white d-flex justify-content-center align-items-center min-vh-100"
 >
-  <form action="/login" method="POST">
+  <form action="/register" method="POST">
     <div class="mb-3">
       <label for="username" class="form-label">Username :</label>
       <input
@@ -22,6 +22,16 @@
         name="password"
         id="password"
         placeholder="Password"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email :</label>
+      <input
+        type="email"
+        class="form-control"
+        name="email"
+        id="email"
+        placeholder="Email"
       />
     </div>
     <input type="submit" class="btn border rounded text-white" value="Login" />
