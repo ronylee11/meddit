@@ -10,11 +10,11 @@ module.exports.createUser = async (req, res) => {
 };
 
 module.exports.login = (req, res) => {
-  res.render("users/login");
+  res.render("users/login", { isLoggedIn: req.isAuthenticated() });
 };
 
 module.exports.register = (req, res) => {
-  res.render("users/register");
+  res.render("users/register", { isLoggedIn: req.isAuthenticated() });
 };
 
 module.exports.loginUser = (req, res) => {
@@ -23,4 +23,10 @@ module.exports.loginUser = (req, res) => {
   const redirectUrl = req.session.returnTo || "/feeds";
   delete req.session.returnTo;
   res.redirect(redirectUrl);
+};
+
+module.exports.logout = (req, res) => {
+  req.logout((err) => (err ? next(err) : null));
+  req.flash("success", "Goodbye!");
+  res.redirect("/feeds");
 };

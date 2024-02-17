@@ -20,4 +20,6 @@ router
     userController.loginUser
   );
 
+router.route("/logout").get(userController.logout);
+
 module.exports = router;
