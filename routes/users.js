@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/users");
+const passport = require("passport");
 
 router
   .route("/register")
@@ -8,8 +9,15 @@ router
   .post(userController.createUser);
 
 router
-    .route("/login")
-    .get(userController.login);
-    //.post(userController.loginUser);
+  .route("/login")
+  .get(userController.login)
+  .post(
+    passport.authenticate("local", {
+      failureFlash: true,
+      failureRedirect: "/login",
+      keepSessionInfo: true,
+    }),
+    userController.loginUser
+  );
 
 module.exports = router;

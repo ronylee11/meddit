@@ -16,3 +16,11 @@ module.exports.login = (req, res) => {
 module.exports.register = (req, res) => {
   res.render("users/register");
 };
+
+module.exports.loginUser = (req, res) => {
+  // once it reaches here, it means the user is authenticated
+  req.flash("success", "Welcome back!");
+  const redirectUrl = req.session.returnTo || "/feeds";
+  delete req.session.returnTo;
+  res.redirect(redirectUrl);
+};
