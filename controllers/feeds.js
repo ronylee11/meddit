@@ -6,17 +6,17 @@ module.exports.home = (req, res) => {
 
 module.exports.index = async (req, res) => {
   const feeds = await Feed.find({});
-  res.render("feeds/index", { feeds });
+  res.render("feeds/index", { feeds, isLoggedIn: req.isAuthenticated() });
 };
 
 module.exports.show = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
-  res.render("feeds/show", { feed });
+  res.render("feeds/show", { feed, isLoggedIn: req.isAuthenticated() });
 };
 
 module.exports.edit = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
-  res.render("feeds/edit", { feed });
+  res.render("feeds/edit", { feed, isLoggedIn: req.isAuthenticated() });
 };
 
 module.exports.update = async (req, res) => {
