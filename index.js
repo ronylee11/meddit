@@ -14,6 +14,7 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const user = require("./controllers/users");
 const userRoutes = require("./routes/users");
+const feedRoutes = require("./routes/feeds");
 
 const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/Meddit"; // 27017 is the default mongodb port
 
@@ -83,15 +84,7 @@ app.use((req, res, next) => {
 
 app.get("/", feed.home);
 
-app.get("/feeds", feed.index);
-
-app.get("/feeds/:id/edit", feed.edit);
-
-app.post("/feeds/:id", feed.update);
-
-app.delete("/feeds/:id", feed.destroy);
-
-app.get("/feeds/:id", feed.show);
+app.use("/feeds", feedRoutes);
 
 app.use("/", userRoutes);
 
