@@ -1,10 +1,16 @@
-<%layout('layouts/boilerplate')%>
+<!--<%layout('layouts/boilerplate')%>-->
 <link rel="stylesheet" href="/stylesheets/main.css" />
 
 <div class="row" id="canvas">
   <div class="container col-md-6 offset-md-3">
-    <h1 class="text-center">Hello World!</h1>
+    <h1 class="text-center">Welcome to Meddit</h1>
   </div>
 </div>
 
 <script src="/javascripts/app.js"></script>
+
+<script>
+  // hide navbar for mIniMaLiSm
+  const navbar = document.querySelector(".navbar");
+  navbar.classList.add("d-none");
+</script>

@@ -1,7 +1,7 @@
 const Feed = require("../models/feed");
 
 module.exports.home = (req, res) => {
-  res.render("home");
+  res.render("home", { isLoggedIn: req.isAuthenticated() });
 };
 
 module.exports.index = async (req, res) => {
