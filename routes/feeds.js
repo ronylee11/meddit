@@ -4,6 +4,10 @@ const feedController = require("../controllers/feeds");
 
 router
     .get("/", feedController.index)
+    .post("/", feedController.create)
+
+router
+    .get("/new", feedController.new)
 
 router
     .get("/:id/edit", feedController.edit)

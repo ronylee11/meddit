@@ -1,0 +1,16 @@
+<%layout('layouts/boilerplate')%>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100" >
+    <div class="border rounded p-2">
+        <form action="/feeds" method="post">
+            <label for="title">Title: </label>
+            <input type="text" name="title" value="" />
+            <br />
+            <label for="description">Description: </label>
+            <input type="text" name="description" value="" />
+            <br />
+            <a href="/feeds" class="btn btn-secondary">Back</a>
+            <button type="submit" class="btn btn-warning">Edit</button>
+        </form>
+    </div>
+</div>

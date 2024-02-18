@@ -30,3 +30,13 @@ module.exports.destroy = async (req, res) => {
   await Feed.findByIdAndDelete(id);
   res.redirect("/feeds");
 };
+
+module.exports.new = (req, res) => {
+  res.render("feeds/new", { isLoggedIn: req.isAuthenticated() });
+};
+
+module.exports.create = async (req, res) => {
+  const feed = new Feed(req.body);
+  await feed.save();
+  res.redirect("/feeds");
+};
