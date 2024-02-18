@@ -6,11 +6,11 @@ router
     .get("/", feedController.index)
 
 router
-    .get(":id/edit", feedController.edit)
+    .get("/:id/edit", feedController.edit)
 
 router
-    .get(":id", feedController.show)
-    .post(":id", feedController.update)
-    .delete(":id", feedController.destroy)
+    .get("/:id", feedController.show)
+    .post("/:id", feedController.update)
+    .delete("/:id", feedController.destroy)
 
 module.exports = router;
