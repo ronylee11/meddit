@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npm install",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "seed": "node seeds/index.js"
   },
   "repository": {
     "type": "git",
