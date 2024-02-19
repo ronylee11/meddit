@@ -132,10 +132,18 @@ table {
 /*begin of css*/
 /*------------*/
 
+:root {
+  --primary-color: #1a1a1b;
+  --primary-color-subtle: #272729;
+  --navbar-text-color: #d7dadc;
+  --body-background-color: #030303;
+  --feed-background-color: #161617;
+}
+
 body {
-  background-color: #1e2132;
+  background-color: var(--body-background-color);
   color: white;
-  font-family: "Black Ops One", cursive;
+  font-family: "IBM Plex Sans", Arial, sans-serif;
 }
 
 #canvas {
@@ -143,4 +151,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/*Navbar config*/
+.navbar {
+  background-color: var(--primary-color);
 }
