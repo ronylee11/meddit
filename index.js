@@ -13,10 +13,9 @@ const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
-const user = require("./controllers/users");
 const userRoutes = require("./routes/users");
 const feedRoutes = require("./routes/feeds");
-const apiRoutes = require("./routes/api");
+const apiRoutes = require("./routes/apis");
 
 const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/Meddit"; // 27017 is the default mongodb port
 
@@ -96,7 +95,7 @@ app.get("/users/login", function (req, res) {res.render("user/login");});
 
 app.get("/users/register", function (req, res) {res.render("user/register");});
 
-app.post("/users/auth", user.auth);
+app.post("/users/auth", user.loginUser);
 
 app.post("/users/createUser", user.createUser)
 
