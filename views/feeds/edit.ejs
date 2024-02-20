@@ -1,8 +1,8 @@
 <%layout('layouts/boilerplate')%>
 
-<div class="container border rounded p-2">
-  <h1>This is edit Page</h1>
-  <form action="/feeds/<%=feed.id%>" method="post">
+<div class="container d-flex justify-content-center align-items-center min-vh-100" >
+    <div class="border rounded p-2">
+        <form action="/feeds/<%=feed.id%>" method="post">
     <label for="title">Title: </label>
     <input type="text" name="title" value="<%= feed.title %>" />
     <br />
@@ -11,5 +11,6 @@
     <br />
     <a href="/feeds/<%=feed.id%>" class="btn btn-secondary">Back</a>
     <button type="submit" class="btn btn-warning">Edit</button>
-  </form>
+        </form>
+    </div>
 </div>

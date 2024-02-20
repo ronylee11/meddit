@@ -1,38 +1,32 @@
 // Using the User model, retrieve data and respond data
-const { response } = require("express");
 const User = require("../models/user");
 
-module.exports.createUser = (req, res) => {
-  const { username, password, cPassword, email } = req.body;
-
-  if (password == cPassword){
-      const user = new User({ username, password, email });
-  user
-    .save()
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => console.log(err));
-  }
-  else{
-      console.log("Password mismatched");
-  }
-
+module.exports.createUser = async (req, res) => {
+  const { username, password, email } = req.body;
+  const user = new User({ username, email });
+  await User.register(user, password);
+  req.flash("success", "Successfully registered!");
+  res.redirect("/feeds");
 };
 
-module.exports.auth = async (req, res) =>{
-  try{
-    const username = await req.body.username;
-    const password = await req.body.password;
+module.exports.login = (req, res) => {
+  res.render("users/login", { isLoggedIn: req.isAuthenticated() });
+};
 
-    console.log(username);
-    console.log(password);
-    const user = await User.findOne({username: username, password: password});
-    if(user){
-      res.render("/feeds/index");
-    }
-  }
-  catch (ex){
-    return res.status(500).json({ex});
-  }
-}
+module.exports.register = (req, res) => {
+  res.render("users/register", { isLoggedIn: req.isAuthenticated() });
+};
+
+module.exports.loginUser = (req, res) => {
+  // once it reaches here, it means the user is authenticated
+  req.flash("success", "Welcome back!");
+  const redirectUrl = req.session.returnTo || "/feeds";
+  delete req.session.returnTo;
+  res.redirect(redirectUrl);
+};
+
+module.exports.logout = (req, res) => {
+  req.logout((err) => (err ? next(err) : null));
+  req.flash("success", "Goodbye!");
+  res.redirect("/feeds");
+};
