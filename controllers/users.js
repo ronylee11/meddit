@@ -14,7 +14,7 @@ module.exports.login = (req, res) => {
 };
 
 module.exports.register = (req, res) => {
-  res.render("users/register", { isLoggedIn: req.isAuthenticated() });
+  res.render("users/register", { username: req.body.username, password: req.body.password, email: req.body.email});
 };
 
 module.exports.loginUser = (req, res) => {
