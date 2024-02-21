@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
@@ -17,7 +18,7 @@ const userRoutes = require("./routes/users");
 const feedRoutes = require("./routes/feeds");
 const apiRoutes = require("./routes/apis");
 
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/Meddit"; // 27017 is the default mongodb port
+const dbUrl = process.env.DB_URL;// || "mongodb://localhost:27017/Meddit"; // 27017 is the default mongodb port
 
 mongoose.set("strictQuery", false); // disable deprecation warning
 mongoose.connect(dbUrl);

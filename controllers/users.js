@@ -1,6 +1,7 @@
 // Using the User model, retrieve data and respond data
 const User = require("../models/user");
 
+
 module.exports.createUser = async (req, res) => {
   const { username, password, email } = req.body;
   const user = new User({ username, email });
@@ -14,7 +15,7 @@ module.exports.login = (req, res) => {
 };
 
 module.exports.register = (req, res) => {
-  res.render("users/register", { username: req.body.username, password: req.body.password, email: req.body.email});
+  res.render("users/register", { isLoggedIn: req.isAuthenticated()});
 };
 
 module.exports.loginUser = (req, res) => {
