@@ -31,6 +31,7 @@
     "bootstrap-icons": "^1.11.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
     "ejs-mate": "^4.0.0",
     "express": "^4.18.2",
