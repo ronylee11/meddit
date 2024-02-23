@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema, model: Model } = mongoose;
 
 const commentSchema = new Schema({
-  username: [{type: Schema.Types.ObjectId, ref: "User" }],
+  author: {type: Schema.Types.ObjectId, ref: "User" },
   description: String,
   date: Date,
   upvote: Number,

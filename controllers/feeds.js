@@ -12,8 +12,11 @@ module.exports.index = async (req, res) => {
 
 module.exports.show = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
+  const comments = await Comment.find({_id: feed.comments});
 
-  res.render("feeds/show", { feed, isLoggedIn: req.isAuthenticated(), isOwner: req?.user?._id});
+  console.log(comments);
+
+  res.render("feeds/show", { feed, comments, isLoggedIn: req.isAuthenticated(), isOwner: feed.author._id.equals(req?.user?._id) });
 };
 
 module.exports.edit = async (req, res) => {
@@ -43,7 +46,7 @@ module.exports.create = async (req, res) => {
   await feed.save();
 
   req.user.feeds.push(feed);
-  req.user.save();
+  await req.user.save();
 
   res.redirect("/feeds");
 };
@@ -52,13 +55,14 @@ module.exports.create = async (req, res) => {
 module.exports.comment = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
   const comment = new Comment({
-      username: req.user,
+      author: req.user,
       description: req.body.comment,
       date: Date.now(),
       upvote: 0
     });
+    await comment.save();
   feed.comments.push(comment);
-  feed.save();
+  await feed.save();
 
   res.redirect(`/feeds/${req.params.id}`);
 }

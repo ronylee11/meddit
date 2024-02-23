@@ -13,6 +13,12 @@
       </form>
       <% } %>
     </div>
+     <% for (const comment of comments) {%>
+    <div>
+      <h5><%= comment.author %></h5>
+      <p class="card-text"><%= comment.description %></p>
+    </div>
+    <% } %> 
     <div class="d-flex">
       <form action="/feeds/<%=feed.id%>/comment" method="post">
         <input type="text" class="form-control" name="comment" />
