@@ -14,8 +14,6 @@ module.exports.show = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
   const comments = await Comment.find({_id: feed.comments});
 
-  console.log(comments);
-
   res.render("feeds/show", { feed, comments, isLoggedIn: req.isAuthenticated(), isOwner: feed.author._id.equals(req?.user?._id) });
 };
 

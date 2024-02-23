@@ -14,8 +14,9 @@
       <% } %>
     </div>
      <% for (const comment of comments) {%>
-    <div>
+    <div style="border: 1px solid black;">
       <h5><%= comment.author %></h5>
+      <br/>
       <p class="card-text"><%= comment.description %></p>
     </div>
     <% } %> 
