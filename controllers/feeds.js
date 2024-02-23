@@ -13,15 +13,7 @@ module.exports.index = async (req, res) => {
 module.exports.show = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
 
-  var isOwner;
-
-  if(req?.user?._id){
-    isOwner = req.user._id == feed.userid;
-  }else{
-    isOwner = false;
-  }
-
-  res.render("feeds/show", { feed, isLoggedIn: req.isAuthenticated(), isOwner: isOwner});
+  res.render("feeds/show", { feed, isLoggedIn: req.isAuthenticated(), isOwner: req?.user?._id});
 };
 
 module.exports.edit = async (req, res) => {
@@ -47,7 +39,12 @@ module.exports.new = (req, res) => {
 
 module.exports.create = async (req, res) => {
   const feed = new Feed(req.body);
+  feed.author = req.user;
   await feed.save();
+
+  req.user.feeds.push(feed);
+  req.user.save();
+
   res.redirect("/feeds");
 };
 
@@ -62,5 +59,6 @@ module.exports.comment = async (req, res) => {
     });
   feed.comments.push(comment);
   feed.save();
+
   res.redirect(`/feeds/${req.params.id}`);
 }
