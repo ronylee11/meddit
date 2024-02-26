@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config(); // load .env
 const express = require("express");
 const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
