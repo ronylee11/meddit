@@ -19,7 +19,7 @@ module.exports.login = (req, res) => {
 };
 
 module.exports.register = (req, res) => {
-  res.render("users/register", { isLoggedIn: req.isAuthenticated()});
+  res.render("users/register", { isLoggedIn: req.isAuthenticated() });
 };
 
 module.exports.loginUser = (req, res) => {
