@@ -6,9 +6,24 @@
     <h3><%= feed.description %></h3>
     <div class="d-flex">
       <a href="/feeds" class="btn btn-secondary m-2">Back</a>
+      <% if(isOwner) { %>
       <a href="/feeds/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a>
       <form action="/feeds/<%=feed.id%>?_method=DELETE" method="POST">
         <button type="submit" class="btn btn-danger m-2">Delete</button>
+      </form>
+      <% } %>
+    </div>
+     <% for (const comment of comments) {%>
+    <div style="border: 1px solid black;">
+      <h5><%= comment.author %></h5>
+      <br/>
+      <p class="card-text"><%= comment.description %></p>
+    </div>
+    <% } %> 
+    <div class="d-flex">
+      <form action="/feeds/<%=feed.id%>/comment" method="post">
+        <input type="text" class="form-control" name="comment" />
+        <button type="submit" class="btn btn-secondary m-2">Post</a>
       </form>
     </div>
   </div>

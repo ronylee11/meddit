@@ -5,6 +5,7 @@ const ejsMate = require("ejs-mate");
 const path = require("path");
 const methodOverride = require("method-override");
 const feed = require("./controllers/feeds");
+const user = require("./controllers/users");
 const mongoose = require("mongoose"); // connect database
 // login register
 const session = require("express-session");
@@ -13,12 +14,11 @@ const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
-const user = require("./controllers/users");
 const userRoutes = require("./routes/users");
 const feedRoutes = require("./routes/feeds");
 const apiRoutes = require("./routes/apis");
 
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/Meddit"; // 27017 is the default mongodb port
+const dbUrl = process.env.DB_URL;// || "mongodb://localhost:27017/Meddit"; // 27017 is the default mongodb port
 
 mongoose.set("strictQuery", false); // disable deprecation warning
 mongoose.connect(dbUrl);
@@ -91,6 +91,14 @@ app.use("/feeds", feedRoutes);
 app.use("/", userRoutes);
 
 app.use("/api", apiRoutes);
+
+app.get("/users/login", function (req, res) {res.render("user/login");});
+
+app.get("/users/register", function (req, res) {res.render("user/register");});
+
+app.post("/users/auth", user.loginUser);
+
+app.post("/users/createUser", user.createUser)
 
 app.listen(3000, () => {
   console.log("App is running on 3000!");
