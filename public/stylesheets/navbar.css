@@ -1,5 +1,4 @@
 #navbar-logo svg {
-  width: 30px;
   height: auto;
   color: #ff4500;
   background-color: white;
@@ -16,7 +15,7 @@
 }
 
 #navbar-community {
-  width: 30%;
+  min-width: 50px;
 }
 
 #navbar-community span {
@@ -25,6 +24,12 @@
 
 #search-icon {
   color: black;
+}
+
+#profile {
+  max-width: 20px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 @media (min-width: 768px) {
