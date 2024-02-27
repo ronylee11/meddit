@@ -14,14 +14,6 @@
   border-radius: 20px;
 }
 
-#navbar-community {
-  min-width: 50px;
-}
-
-#navbar-community span {
-  display: none;
-}
-
 #search-icon {
   color: black;
 }
@@ -33,7 +25,7 @@
 }
 
 @media (min-width: 768px) {
-  #navbar-logo span {
+  #navbar-logo {
     display: inline;
   }
 }
