@@ -12,6 +12,7 @@
         name="username"
         id="username"
         placeholder="Username"
+        required="true"
       />
     </div>
     <div class="mb-3">
@@ -22,7 +23,15 @@
         name="password"
         id="password"
         placeholder="Password"
+        required="true"
       />
+      <label for="cpassword" class="form-label">Confirm Password :</label>
+      <input type="password"
+      class="form-control"
+      name="cpassword"
+      placeholder="Confirm Password"
+      required="true"
+    />
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email :</label>
@@ -32,8 +41,9 @@
         name="email"
         id="email"
         placeholder="Email"
+        required="true"
       />
     </div>
-    <input type="submit" class="btn border rounded text-white" value="Login" />
+    <input type="submit" class="btn border rounded text-white" value="Sign Up!" />
   </form>
 </div>

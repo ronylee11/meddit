@@ -3,11 +3,27 @@ const User = require("../models/user");
 
 
 module.exports.createUser = async (req, res) => {
-  const { username, password, email } = req.body;
+  const { username, password, cpassword, email } = req.body;
   const user = new User({ username, email });
-  await User.register(user, password);
-  req.flash("success", "Successfully registered!");
-  res.redirect("/feeds");
+  const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  if(username && email.match(emailFormat) && password == cpassword){
+    try{
+      await User.register(user, password);
+      req.flash("success", "Successfully registered!");
+      res.redirect("/feeds");
+
+    }catch (ex){
+      console.log("Duplicate User");
+      req.flash("error", "User already exist!");
+      //Reload page
+      res.redirect(req.get('referer'));
+    }
+  }else{
+    console.log("Input error");
+    req.flash("error", "Invalid input");
+    //Reload page
+    res.redirect(req.get('referer'));
+   }
 };
 
 module.exports.login = (req, res) => {

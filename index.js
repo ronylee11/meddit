@@ -81,8 +81,10 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+
   next();
 });
+
 
 app.get("/", feed.home);
 
@@ -91,10 +93,6 @@ app.use("/feeds", feedRoutes);
 app.use("/", userRoutes);
 
 app.use("/api", apiRoutes);
-
-app.get("/users/login", function (req, res) {res.render("user/login");});
-
-app.get("/users/register", function (req, res) {res.render("user/register");});
 
 app.post("/users/auth", user.loginUser);
 
