@@ -158,7 +158,11 @@ body {
   background-color: var(--primary-color);
 }
 
-/*Login and Register Form*/
-.userAuthForm {
-  min-height: calc(100vh - 56px); /*56px is the height of the navbar*/
+#navbar-search {
+  background-color: white;
+  border-radius: 20px;
+}
+
+#search-icon {
+  color: black;
 }

@@ -1,8 +1,10 @@
+require("dotenv").config(); // load .env
 const mongoose = require("mongoose");
 const Feed = require("../models/feed");
 const faker = require("faker");
 
-mongoose.connect("mongodb://localhost:27017/Meddit");
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/Meddit";
+mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
