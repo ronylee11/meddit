@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config(); // load .env
 const express = require("express");
 const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
@@ -93,6 +93,10 @@ app.use("/feeds", feedRoutes);
 app.use("/", userRoutes);
 
 app.use("/api", apiRoutes);
+
+app.get("/users/login", function (req, res) {res.render("user/login");});
+
+app.get("/users/register", function (req, res) {res.render("user/register");});
 
 app.post("/users/auth", user.loginUser);
 
