@@ -25,7 +25,7 @@
   color: var(--primary-color);
 }
 
-.navbar-toggler:hover {
+.navbar-hover:hover {
   background-color: var(--primary-color-subtle);
   border-radius: 50px;
 }
