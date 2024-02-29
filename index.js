@@ -94,13 +94,7 @@ app.use("/", userRoutes);
 
 app.use("/api", apiRoutes);
 
-app.get("/users/login", function (req, res) {res.render("user/login");});
-
-app.get("/users/register", function (req, res) {res.render("user/register");});
-
-app.post("/users/auth", user.loginUser);
-
-app.post("/users/createUser", user.createUser)
+app.use("/", userRoutes);
 
 app.listen(3000, () => {
   console.log("App is running on 3000!");
