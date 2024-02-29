@@ -20,12 +20,6 @@ router
     userController.loginUser
   );
 
-router
-    .post("/auth", user.loginUser);
-
-router
-    .post("/createUser", user.createUser);
-
 router.route("/logout").get(userController.logout);
 
 module.exports = router;
