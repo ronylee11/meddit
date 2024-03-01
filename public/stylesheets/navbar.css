@@ -1,3 +1,15 @@
+:root {
+  --primary-color: #1a1a1b;
+  --primary-color-subtle: #272729;
+  --navbar-text-color: #d7dadc;
+  --body-background-color: #030303;
+  --feed-background-color: #161617;
+}
+
+#navbar-logo {
+  margin: 0 5px;
+}
+
 #navbar-logo svg {
   height: auto;
   color: #ff4500;
@@ -9,9 +21,19 @@
   display: none;
 }
 
+.navbar-toggler {
+  color: var(--primary-color);
+}
+
+.navbar-hover:hover {
+  background-color: var(--primary-color-subtle);
+  border-radius: 50px;
+}
+
 #navbar-search {
   background-color: white;
   border-radius: 20px;
+  max-width: 200px;
 }
 
 #search-icon {
@@ -19,7 +41,7 @@
 }
 
 #profile {
-  max-width: 20px;
+  max-width: 25px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -27,5 +49,9 @@
 @media (min-width: 768px) {
   #navbar-logo {
     display: inline;
+  }
+
+  #navbar-search {
+    max-width: 500px;
   }
 }
