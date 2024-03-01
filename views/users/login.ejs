@@ -1,12 +1,19 @@
 <%layout('layouts/boilerplate')%>
 
 <div
-  class="container d-flex align-items-center justify-content-center text-white"
+  class="container d-flex align-items-center justify-content-center text-white userAuthForm"
 >
-  <form action="/login" method="POST">
+  <form action="/login" method="POST" class="needs-validation" novalidate>
     <div class="mb-3">
       <label for="username" class="form-label">Username :</label>
-      <input type="text" class="form-control" name="username" id="username" />
+      <input
+        type="text"
+        class="form-control"
+        name="username"
+        id="username"
+        placeholder="Username"
+        required
+      />
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Password :</label>
@@ -15,6 +22,8 @@
         class="form-control"
         name="password"
         id="password"
+        placeholder="Password"
+        required
       />
     </div>
     <input type="submit" class="btn border rounded text-white" value="Login" />

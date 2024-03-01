@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config(); // load .env
 const express = require("express");
 const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
@@ -18,7 +18,7 @@ const userRoutes = require("./routes/users");
 const feedRoutes = require("./routes/feeds");
 const apiRoutes = require("./routes/apis");
 
-const dbUrl = process.env.DB_URL;// || "mongodb://localhost:27017/Meddit"; // 27017 is the default mongodb port
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/Meddit"; // 27017 is the default mongodb port
 
 mongoose.set("strictQuery", false); // disable deprecation warning
 mongoose.connect(dbUrl);
@@ -81,10 +81,8 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-
   next();
 });
-
 
 app.get("/", feed.home);
 
@@ -93,6 +91,10 @@ app.use("/feeds", feedRoutes);
 app.use("/", userRoutes);
 
 app.use("/api", apiRoutes);
+
+app.get("/users/login", function (req, res) {res.render("user/login");});
+
+app.get("/users/register", function (req, res) {res.render("user/register");});
 
 app.post("/users/auth", user.loginUser);
 
