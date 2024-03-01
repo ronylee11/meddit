@@ -1,17 +1,29 @@
 // Using the User model, retrieve data and respond data
 const User = require("../models/user");
 
+
 module.exports.createUser = async (req, res) => {
-  const { username, password, email } = req.body;
-  try {
-    const user = new User({ username, email });
-    await User.register(user, password);
-    req.flash("success", "Successfully registered!");
-    res.redirect("/feeds");
-  } catch (e) {
-    req.flash("error", e.message);
-    res.redirect("/register");
-  }
+  const { username, password, cpassword, email } = req.body;
+  const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  if(username && email.match(emailFormat) && password == cpassword){
+    try{
+      const user = new User({ username, email });
+      await User.register(user, password);
+      req.flash("success", "Successfully registered!");
+      res.redirect("/feeds");
+
+    }catch (ex){
+      console.log("Duplicate User");
+      req.flash("error", "User already exist!");
+      //Reload page
+      res.redirect(req.get('referer'));
+    }
+  }else{
+    console.log("Input error");
+    req.flash("error", "Invalid input");
+    //Reload page
+    res.redirect(req.get('referer'));
+   }
 };
 
 module.exports.login = (req, res) => {
@@ -19,7 +31,7 @@ module.exports.login = (req, res) => {
 };
 
 module.exports.register = (req, res) => {
-  res.render("users/register", { isLoggedIn: req.isAuthenticated() });
+  res.render("users/register", { isLoggedIn: req.isAuthenticated()});
 };
 
 module.exports.loginUser = (req, res) => {
