@@ -6,8 +6,24 @@ module.exports.home = (req, res) => {
 };
 
 module.exports.index = async (req, res) => {
-  const feeds = await Feed.find({});
-  res.render("feeds/index", { feeds, isLoggedIn: req.isAuthenticated() });
+  const { search } = req.query;
+  let feeds;
+  if (search && search !== "") {
+    feeds = await Feed.find({
+      $or: [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+      ],
+    });
+  } else {
+    feeds = await Feed.find({});
+  }
+
+  res.render("feeds/index", {
+    feeds,
+    isLoggedIn: req.isAuthenticated(),
+    search,
+  });
 };
 
 module.exports.show = async (req, res) => {
