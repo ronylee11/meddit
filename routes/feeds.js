@@ -12,6 +12,8 @@ router
 router
     .get("/:id/edit", feedController.edit)
     .post("/:id/comment", feedController.comment)
+    .post("/:id/upvotefeed", feedController.upvotefeed)
+    .post("/:id/upvotecomment", feedController.upvotefeed)
 
 router
     .get("/:id", feedController.show)
