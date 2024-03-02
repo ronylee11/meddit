@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/stylesheets/navbar.css" />
 <nav class="navbar navbar-dark sticky-top vw-100 z-2">
-  <div class="container-fluid d-flex justify-content-center align-items-center">
+  <div class="d-flex justify-content-center align-items-center">
     <button
       class="navbar-toggler border-0 d-lg-none navbar-hover"
       type="button"
@@ -51,11 +51,12 @@
     </div>
     <div
       class="navbar-hover p-2 d-flex align-items-center justify-content-center"
+      id="create-feed"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="25"
+        height="25"
         fill="currentColor"
         class="bi bi-plus-lg"
         viewBox="0 0 16 16"
@@ -65,9 +66,9 @@
           d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
         />
       </svg>
-      <span class="me-1">Create</span>
+      <span class="fw-bold me-1">Create</span>
     </div>
-    <div class="navbar-hover me-1">
+    <div class="navbar-hover me-1" id="notification">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -82,8 +83,10 @@
       </svg>
     </div>
     <img id="profile" src="/assets/meddit.jpg" alt="" />
+  </div>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="container">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="/feeds">Feeds</a>
@@ -133,4 +136,3 @@
     </div>
   </div>
 </nav>
-
