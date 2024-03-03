@@ -3,6 +3,7 @@
   --hover-background-color: #141f25;
   --button-background-color: #1a272d;
   --toggler-hover-color: #233239;
+  --search-bar-background-color: #223237;
 }
 
 .navbar-dark {
@@ -34,9 +35,14 @@
 }
 
 #navbar-search {
-  background-color: white;
+  background-color: var(--search-bar-background-color);
   border-radius: 20px;
-  max-width: 200px;
+  max-width: 5.5em;
+}
+
+#navbar-search input {
+  background-color: var(--search-bar-background-color);
+  padding: 0.5em;
 }
 
 #search-icon {
@@ -52,14 +58,26 @@
 }
 
 #profile {
-  max-width: 25px;
+  max-width: 32px;
   border-radius: 50%;
+  height: width;
   object-fit: cover;
 }
 
 #notification,
 #profile {
   display: none;
+}
+
+#nav-end {
+  padding: 0 15px 0 0;
+}
+
+@media (min-width: 400px) {
+  #notification,
+  #profile {
+    display: inline;
+  }
 }
 
 @media (min-width: 768px) {
