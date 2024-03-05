@@ -51,7 +51,7 @@ module.exports.destroy = async (req, res) => {
 };
 
 module.exports.new = (req, res) => {
-  res.render("feeds/new", { isLoggedIn: req.isAuthenticated(), userid: req.user._id });
+  res.render("feeds/new", { isLoggedIn: req.isAuthenticated()});
 };
 
 module.exports.create = async (req, res) => {
