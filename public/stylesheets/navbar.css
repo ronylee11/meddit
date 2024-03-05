@@ -37,7 +37,6 @@
 #navbar-search {
   background-color: var(--search-bar-background-color);
   border-radius: 20px;
-  max-width: 5.5em;
 }
 
 #navbar-search input {
