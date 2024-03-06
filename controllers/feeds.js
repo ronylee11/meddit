@@ -1,5 +1,6 @@
 const Feed = require("../models/feed");
 const Comment = require("../models/comment");
+const User = require("../models/user");
 
 module.exports.home = (req, res) => {
   res.render("home", { isLoggedIn: req.isAuthenticated() });
@@ -28,7 +29,8 @@ module.exports.index = async (req, res) => {
 
 module.exports.show = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
-  const comments = await Comment.find({_id: feed.comments});
+  const comments = await Comment.find({_id: feed.comments}).populate("author");
+
 
   res.render("feeds/show", { feed, comments, isLoggedIn: req.isAuthenticated(), isOwner: feed.author._id.equals(req?.user?._id) });
 };
@@ -65,18 +67,87 @@ module.exports.create = async (req, res) => {
   res.redirect("/feeds");
 };
 
+module.exports.upvotefeed = async (req, res) => {
+
+  if(req?.user){
+    const feedvoted = await Feed.find({_id: req.params.id, upvotes: req.user._id});
+    const feed = await Feed.findById(req.params.id);
+    //logged in
+
+    if(feedvoted.length == 0){
+      //Unvoted then add
+      feed.upvotes.push(req.user);
+    }else{
+      //Voted then negate
+      feed.upvotes.pull(req.user);   
+    }
+    feed.save();
+    res.redirect(`/feeds/${req.params.id}`);
+  }
+  else{
+    req.flash("error", "Please Login!");//Redirect to login?
+    //Reload page
+    res.redirect(req.get('referer'));
+  }
+}
+
 //Comment
 module.exports.comment = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
-  const comment = new Comment({
+  if(req?.user){
+    const comment = new Comment({
       author: req.user,
       description: req.body.comment,
       date: Date.now(),
-      upvote: 0
     });
     await comment.save();
-  feed.comments.push(comment);
-  await feed.save();
+    feed.comments.push(comment);
+   await feed.save();
+  }
+  else{
+    req.flash("error", "Please Login!");//Redirect to login?
+  }
+  res.redirect(`/feeds/${req.params.id}`);
+}
 
+module.exports.upvotecomment = async (req, res) => {
+  const commentvoted = await Comment.find({_id: req.params.id, upvotes: req.user._id});
+  const comment = await Comment.findById(req.params.id);
+
+  if(req?.user){
+    //logged in
+
+    if(commentvoted.length == 0){
+      //Unvoted then add
+      comment.upvotes.push(req.user);
+    }else{
+      //Voted then negate
+      comment.upvotes.pull(req.user);
+    }
+    comment.save();
+    res.redirect(`/feeds/${req.params.feedid}`);
+  }
+  else{
+    req.flash("error", "Please Login!");//Redirect to login?
+    //Reload page
+    res.redirect(req.get('referer'));
+  }
+}
+
+module.exports.reply = async (req, res) => {
+  const comment = await Comment.findById(req.params.id);
+  if(req?.user){
+    const newcomment = new Comment({
+      author: req.user,
+      description: req.body.comment,
+      date: Date.now(),
+    });
+    await comment.save();
+    comment.reply.push(newcomment);
+   await comment.save();
+  }
+  else{
+    req.flash("error", "Please Login!");//Redirect to login?
+  }
   res.redirect(`/feeds/${req.params.id}`);
 }

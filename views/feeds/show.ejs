@@ -13,17 +13,37 @@
       </form>
       <% } %>
     </div>
+    <div class="d-flex">
+      <form action="/feeds/<%=feed.id%>/upvotefeed" method="post">
+        <p><%= feed.upvotes.length %></p>
+        <button type="submit" class="btn btn-secondary m-2">Upvote</button>
+      </form>
+    </div>
+    <!--Make it card-->
      <% for (const comment of comments) {%>
-    <div style="border: 1px solid black;">
-      <h5><%= comment.author %></h5>
+    <div class="d-flex">
+      <h5><%= comment.author.username %></h5>
+      <p>says:</p>
       <br/>
       <p class="card-text"><%= comment.description %></p>
+    </div>
+    <div>
+      <!--Upvote Comment-->
+      <form class="d-flex" action="/feeds/<%=feed.id%>/<%=comment.id%>/upvotecomment" method="post">
+        <p><%= comment.upvotes.length %></p>
+        <button type="submit" class="btn btn-secondary m-2">Upvote</button>
+      </form>
+      <!--Reply-->
+      <form action="/feeds/<%=comment.id%>/reply" method="post">
+        <input type="text" class="form-control" name="reply" />
+        <button type="submit" class="btn btn-secondary m-2">Reply</button>
+      </form>
     </div>
     <% } %> 
     <div class="d-flex">
       <form action="/feeds/<%=feed.id%>/comment" method="post">
         <input type="text" class="form-control" name="comment" />
-        <button type="submit" class="btn btn-secondary m-2">Post</a>
+        <button type="submit" class="btn btn-secondary m-2">Post</button>
       </form>
     </div>
   </div>
