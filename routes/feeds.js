@@ -12,6 +12,10 @@ router
 router
     .get("/:id/edit", feedController.edit)
     .post("/:id/comment", feedController.comment)
+    .post("/:id/upvotefeed", feedController.upvotefeed)
+    .post("/:feedid/:id/upvotecomment", feedController.upvotecomment)
+    .post("/:id/reply", feedController.reply)
+    
 
 router
     .get("/:id", feedController.show)
