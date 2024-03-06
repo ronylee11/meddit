@@ -20,7 +20,13 @@ module.exports.createUser = async (req, res) => {
     }
   }else{
     console.log("Input error");
-    req.flash("error", "Invalid input");
+      if (password !== cpassword) {
+          req.flash("error", "Password and Confirm Password does not match!");
+      } else if (!email.match(emailFormat)) {
+          req.flash("error", "Invalid email format!");
+      } else {
+          req.flash("error", "Invalid input!");
+      }
     //Reload page
     res.redirect(req.get('referer'));
    }
