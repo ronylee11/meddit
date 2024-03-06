@@ -31,8 +31,8 @@ module.exports.show = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
   const comments = await Comment.find({_id: feed.comments}).populate("author");
 
-
-  res.render("feeds/show", { feed, comments, isLoggedIn: req.isAuthenticated(), isOwner: feed.author._id.equals(req?.user?._id) });
+  const isLoggedIn = req.isAuthenticated();
+  res.render("feeds/show", { feed, comments, isLoggedIn , isOwner: isLoggedIn ? feed.author._id.equals(req?.user?._id) : null });
 };
 
 module.exports.edit = async (req, res) => {
