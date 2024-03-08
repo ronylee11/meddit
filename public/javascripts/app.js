@@ -1,8 +1,9 @@
 //alert("Hello World!");
 //
 const notification = document.querySelector("#notification");
+const profile = document.querySelector("#profile");
 
-notification.addEventListener("click", function() {
+const popUpWindow = function() {
     // if floating window already exists, close it
     if (document.querySelector("#floating-window")) {
         document.body.removeChild(document.querySelector("#floating-window"));
@@ -25,5 +26,8 @@ notification.addEventListener("click", function() {
         floatingWindow.innerHTML = "You have no notifications";
         document.body.appendChild(floatingWindow);
     }
-});
+}
+
+notification.addEventListener("click", popUpWindow);
+profile.addEventListener("click", popUpWindow);
 // TODO: better if use react
