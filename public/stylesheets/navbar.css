@@ -57,7 +57,7 @@
 }
 
 #profile {
-  max-width: 32px;
+  max-width: 38px;
   border-radius: 50%;
   height: width;
   object-fit: cover;
@@ -76,6 +76,10 @@
   #notification,
   #profile {
     display: inline;
+  }
+
+  #profile {
+      padding: 3px;
   }
 }
 
