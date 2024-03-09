@@ -86,9 +86,7 @@ app.use((req, res, next) => {
 });
 
 
-app.get("/", feed.home);
-
-app.use("/feeds", feedRoutes);
+app.use("/", feedRoutes);
 
 app.use("/", userRoutes);
 
