@@ -94,8 +94,6 @@ app.use("/", userRoutes);
 
 app.use("/api", apiRoutes);
 
-app.use("/", userRoutes);
-
 app.listen(3000, () => {
   console.log("App is running on 3000!");
 });
