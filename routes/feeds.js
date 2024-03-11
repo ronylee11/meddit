@@ -10,16 +10,16 @@ router
     .get("/new", feedController.new)
 
 router
-    .get("/:id/edit", feedController.edit)
-    .post("/:id/comment", feedController.comment)
-    .post("/:id/upvotefeed", feedController.upvotefeed)
-    .post("/:feedid/:id/upvotecomment", feedController.upvotecomment)
-    .post("/:id/reply", feedController.reply)
+    .get("/m/:id/edit", feedController.edit)
+    .post("/m/:id/comment", feedController.comment)
+    .post("/m/:id/upvotefeed", feedController.upvotefeed)
+    .post("/m/:feedid/:id/upvotecomment", feedController.upvotecomment)
+    .post("/m/:id/reply", feedController.reply)
     
 
 router
-    .get("/:id", feedController.show)
-    .post("/:id", feedController.update)
-    .delete("/:id", feedController.destroy)
+    .get("/m/:id", feedController.show)
+    .post("/m/:id", feedController.update)
+    .delete("/m/:id", feedController.destroy)
 
 module.exports = router;

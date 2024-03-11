@@ -38,7 +38,7 @@ module.exports.show = async (req, res) => {
     }
 
   const isLoggedIn = req.isAuthenticated();
-  res.render("feeds/show", { feed, comments, isLoggedIn , isOwner: isLoggedIn ? feed.author._id.equals(req?.user?._id) : null });
+  res.render("feeds/show", { feed, comments, isLoggedIn , isOwner: isLoggedIn ? feed.author._id.equals(req?.user?._id) : false });
 };
 
 module.exports.edit = async (req, res) => {
@@ -49,13 +49,13 @@ module.exports.edit = async (req, res) => {
 module.exports.update = async (req, res) => {
   const { id } = req.params;
   const feed = await Feed.findByIdAndUpdate(id, { ...req.body });
-  res.redirect(`/feeds/${id}`);
+  res.redirect(`/m/${id}`);
 };
 
 module.exports.destroy = async (req, res) => {
   const { id } = req.params;
   await Feed.findByIdAndDelete(id);
-  res.redirect("/feeds");
+  res.redirect("/");
 };
 
 module.exports.new = (req, res) => {
@@ -70,7 +70,7 @@ module.exports.create = async (req, res) => {
   req.user.feeds.push(feed);
   await req.user.save();
 
-  res.redirect("/feeds");
+  res.redirect("/");
 };
 
 module.exports.upvotefeed = async (req, res) => {
@@ -88,7 +88,7 @@ module.exports.upvotefeed = async (req, res) => {
       feed.upvotes.pull(req.user);   
     }
     feed.save();
-    res.redirect(`/feeds/${req.params.id}`);
+    res.redirect(`/m/${req.params.id}`);
   }
   else{
     req.flash("error", "Please Login!");//Redirect to login?
@@ -113,7 +113,7 @@ module.exports.comment = async (req, res) => {
   else{
     req.flash("error", "Please Login!");//Redirect to login?
   }
-  res.redirect(`/feeds/${req.params.id}`);
+  res.redirect(`/m/${req.params.id}`);
 }
 
 module.exports.upvotecomment = async (req, res) => {
@@ -131,7 +131,7 @@ module.exports.upvotecomment = async (req, res) => {
       comment.upvotes.pull(req.user);
     }
     comment.save();
-    res.redirect(`/feeds/${req.params.feedid}`);
+    res.redirect(`/m/${req.params.feedid}`);
   }
   else{
     req.flash("error", "Please Login!");//Redirect to login?
@@ -155,5 +155,5 @@ module.exports.reply = async (req, res) => {
   else{
     req.flash("error", "Please Login!");//Redirect to login?
   }
-  res.redirect(`/feeds/${req.params.id}`);
+  res.redirect(`/m/${req.params.id}`);
 }
