@@ -28,7 +28,8 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.show = async (req, res) => {
-  const feed = await Feed.findById(req.params.id);
+  const feed = await Feed.findById(req.params.id)
+    .populate("author");
   let comments;
 
     try {
