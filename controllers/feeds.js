@@ -65,11 +65,8 @@ module.exports.new = (req, res) => {
 
 module.exports.create = async (req, res) => {
   const feed = new Feed(req.body);
-  feed.author = req.user;
+  feed.author = req.user._id;
   await feed.save();
-
-  req.user.feeds.push(feed);
-  await req.user.save();
 
   res.redirect("/");
 };
