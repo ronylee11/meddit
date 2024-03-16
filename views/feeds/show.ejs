@@ -1,30 +1,77 @@
 <%layout('layouts/boilerplate')%>
+<link rel="stylesheet" href="/stylesheets/show.css" />
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100" >
-  <div class="card p-2">
-    <h2><%= feed.title %></h2>
-    <h3><%= feed.description %></h3>
-    <div class="d-flex">
-      <a href="/feeds" class="btn btn-secondary m-2">Back</a>
-      <% if(isOwner) { %>
-      <a href="/feeds/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a>
-      <form action="/feeds/<%=feed.id%>?_method=DELETE" method="POST">
-        <button type="submit" class="btn btn-danger m-2">Delete</button>
-      </form>
-      <% } %>
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card p-2" id="post">
+    <div class="d-flex justify-content-between">
+      <div id="start">
+        <img
+          class="col-4"
+          src="/assets/profile.jpg"
+          alt="subredditProfile"
+          id="subredditProfile"
+        />
+        <div class="d-flex flex-column">
+          <span>m/subreddit</span>
+          <span><%=feed.author.username%></span>
+        </div>
+      </div>
+      <div id="end">
+        <!--create a toggle for below options-->
+        <!--<div class="d-flex">-->
+        <!--<a href="/" class="btn btn-secondary m-2">Back</a>-->
+        <!--<% if(isOwner) { %>-->
+        <!--<a href="/m/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a>-->
+        <!--<form action="/m/<%=feed.id%>?_method=DELETE" method="POST">-->
+        <!--<button type="submit" class="btn btn-danger m-2">Delete</button>-->
+        <!--</form>-->
+        <!--<% } %>-->
+        <!--</div>-->
+        <button class="btn rounded border col-4">X</button>
+      </div>
     </div>
-     <% for (const comment of comments) {%>
-    <div style="border: 1px solid black;">
-      <h5><%= comment.author %></h5>
-      <br/>
-      <p class="card-text"><%= comment.description %></p>
-    </div>
-    <% } %> 
-    <div class="d-flex">
-      <form action="/feeds/<%=feed.id%>/comment" method="post">
-        <input type="text" class="form-control" name="comment" />
-        <button type="submit" class="btn btn-secondary m-2">Post</a>
-      </form>
+
+    <div class="row">
+      <h2 class="fw-bold"><%= feed.title %></h2>
+      <h3><%= feed.description %></h3>
     </div>
   </div>
+</div>
+
+<div class="d-flex">
+  <form action="/m/<%=feed.id%>/upvotefeed" method="post">
+    <p><%= feed.upvotes.length %></p>
+    <button type="submit" class="btn btn-secondary m-2">Upvote</button>
+  </form>
+</div>
+<!--Make it card-->
+<% for (const comment of comments) {%>
+<div class="d-flex">
+  <h5><%= comment.author.username %></h5>
+  <p>says:</p>
+  <br />
+  <p class="card-text"><%= comment.description %></p>
+</div>
+<div>
+  <!--Upvote Comment-->
+  <form
+    class="d-flex"
+    action="/m/<%=feed.id%>/<%=comment.id%>/upvotecomment"
+    method="post"
+  >
+    <p><%= comment.upvotes.length %></p>
+    <button type="submit" class="btn btn-secondary m-2">Upvote</button>
+  </form>
+  <!--Reply-->
+  <form action="/m/<%=comment.id%>/reply" method="post">
+    <input type="text" class="form-control" name="reply" />
+    <button type="submit" class="btn btn-secondary m-2">Reply</button>
+  </form>
+</div>
+<% } %>
+<div class="d-flex">
+  <form action="/m/<%=feed.id%>/comment" method="post">
+    <input type="text" class="form-control" name="comment" />
+    <button type="submit" class="btn btn-secondary m-2">Post</button>
+  </form>
 </div>

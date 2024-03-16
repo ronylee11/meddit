@@ -5,7 +5,7 @@ const commentSchema = new Schema({
   author: {type: Schema.Types.ObjectId, ref: "User" },
   description: String,
   date: Date,
-  upvote: Number,
+  upvotes: [{type: Schema.Types.ObjectId, ref: "User" }],
   reply: [{type: Schema.Types.ObjectId, ref: "Comment" }]
 });
 

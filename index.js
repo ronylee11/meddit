@@ -86,15 +86,11 @@ app.use((req, res, next) => {
 });
 
 
-app.get("/", feed.home);
-
-app.use("/feeds", feedRoutes);
+app.use("/", feedRoutes);
 
 app.use("/", userRoutes);
 
 app.use("/api", apiRoutes);
-
-app.use("/", userRoutes);
 
 app.listen(3000, () => {
   console.log("App is running on 3000!");
