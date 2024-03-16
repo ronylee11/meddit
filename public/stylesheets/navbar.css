@@ -1,9 +1,13 @@
 :root {
-  --primary-color: #1a1a1b;
-  --primary-color-subtle: #272729;
-  --navbar-text-color: #d7dadc;
-  --body-background-color: #030303;
-  --feed-background-color: #161617;
+  --primary-background-color: #0b1416;
+  --hover-background-color: #141f25;
+  --button-background-color: #1a272d;
+  --toggler-hover-color: #233239;
+  --search-bar-background-color: #223237;
+}
+
+.navbar-dark {
+  background-color: var(--primary-background-color);
 }
 
 #navbar-logo {
@@ -22,28 +26,61 @@
 }
 
 .navbar-toggler {
-  color: var(--primary-color);
+  color: var(--primary-background-color);
 }
 
 .navbar-hover:hover {
-  background-color: var(--primary-color-subtle);
+  background-color: var(--toggler-hover-color);
   border-radius: 50px;
 }
 
 #navbar-search {
-  background-color: white;
+  background-color: var(--search-bar-background-color);
   border-radius: 20px;
-  max-width: 200px;
+}
+
+#navbar-search input {
+  background-color: var(--search-bar-background-color);
+  padding: 0.5em;
 }
 
 #search-icon {
   color: black;
 }
 
+#create-feed svg {
+  margin-right: 5px;
+}
+
+#create-feed span {
+  font-size: 0.9rem;
+}
+
 #profile {
-  max-width: 25px;
+  max-width: 38px;
   border-radius: 50%;
+  height: width;
   object-fit: cover;
+}
+
+#notification,
+#profile {
+  display: none;
+}
+
+#nav-end {
+  padding: 0 15px 0 0;
+}
+
+@media (min-width: 400px) {
+  #notification,
+  #profile {
+    display: inline;
+  }
+
+  #profile {
+      padding: 3px;
+  }
 }
 
 @media (min-width: 768px) {

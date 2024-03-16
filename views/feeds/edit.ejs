@@ -2,14 +2,14 @@
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100" >
     <div class="border rounded p-2">
-        <form action="/feeds/<%=feed.id%>" method="post">
+        <form action="/m/<%=feed.id%>" method="post">
     <label for="title">Title: </label>
     <input type="text" name="title" value="<%= feed.title %>" />
     <br />
     <label for="description">Description: </label>
     <input type="text" name="description" value="<%= feed.description %>" />
     <br />
-    <a href="/feeds/<%=feed.id%>" class="btn btn-secondary">Back</a>
+    <a href="/m/<%=feed.id%>" class="btn btn-secondary">Back</a>
     <button type="submit" class="btn btn-warning">Edit</button>
         </form>
     </div>

@@ -10,7 +10,7 @@ module.exports.createUser = async (req, res) => {
       const user = new User({ username, email });
       await User.register(user, password);
       req.flash("success", "Successfully registered!");
-      res.redirect("/feeds");
+      res.redirect("/");
 
     }catch (ex){
       console.log("Duplicate User");
@@ -20,7 +20,13 @@ module.exports.createUser = async (req, res) => {
     }
   }else{
     console.log("Input error");
-    req.flash("error", "Invalid input");
+      if (password !== cpassword) {
+          req.flash("error", "Password and Confirm Password does not match!");
+      } else if (!email.match(emailFormat)) {
+          req.flash("error", "Invalid email format!");
+      } else {
+          req.flash("error", "Invalid input!");
+      }
     //Reload page
     res.redirect(req.get('referer'));
    }
@@ -37,7 +43,7 @@ module.exports.register = (req, res) => {
 module.exports.loginUser = (req, res) => {
   // once it reaches here, it means the user is authenticated
   req.flash("success", "Welcome back!");
-  const redirectUrl = req.session.returnTo || "/feeds";
+  const redirectUrl = req.session.returnTo || "/";
   delete req.session.returnTo;
   res.redirect(redirectUrl);
 };
@@ -45,5 +51,5 @@ module.exports.loginUser = (req, res) => {
 module.exports.logout = (req, res) => {
   req.logout((err) => (err ? next(err) : null));
   req.flash("success", "Goodbye!");
-  res.redirect("/feeds");
+  res.redirect("/");
 };

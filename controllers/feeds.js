@@ -7,16 +7,39 @@ module.exports.home = (req, res) => {
 };
 
 module.exports.index = async (req, res) => {
-  const feeds = await Feed.find({});
-  res.render("feeds/index", { feeds, isLoggedIn: req.isAuthenticated() });
+  const { search } = req.query;
+  let feeds;
+  if (search && search !== "") {
+    feeds = await Feed.find({
+      $or: [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+      ],
+    });
+  } else {
+    feeds = await Feed.find({});
+  }
+
+  res.render("feeds/index", {
+    feeds,
+    isLoggedIn: req.isAuthenticated(),
+    search,
+  });
 };
 
 module.exports.show = async (req, res) => {
-  const feed = await Feed.findById(req.params.id);
-  const comments = await Comment.find({_id: feed.comments}).populate("author");
+  const feed = await Feed.findById(req.params.id)
+    .populate("author");
+  let comments;
 
+    try {
+        comments = await Comment.find({_id: feed.comments}).populate("author");
+    } catch (e) {
+        console.log(e);
+    }
 
-  res.render("feeds/show", { feed, comments, isLoggedIn: req.isAuthenticated(), isOwner: feed.author._id.equals(req?.user?._id) });
+  const isLoggedIn = req.isAuthenticated();
+  res.render("feeds/show", { feed, comments, isLoggedIn , isOwner: isLoggedIn ? feed.author._id.equals(req?.user?._id) : false });
 };
 
 module.exports.edit = async (req, res) => {
@@ -27,28 +50,25 @@ module.exports.edit = async (req, res) => {
 module.exports.update = async (req, res) => {
   const { id } = req.params;
   const feed = await Feed.findByIdAndUpdate(id, { ...req.body });
-  res.redirect(`/feeds/${id}`);
+  res.redirect(`/m/${id}`);
 };
 
 module.exports.destroy = async (req, res) => {
   const { id } = req.params;
   await Feed.findByIdAndDelete(id);
-  res.redirect("/feeds");
+  res.redirect("/");
 };
 
 module.exports.new = (req, res) => {
-  res.render("feeds/new", { isLoggedIn: req.isAuthenticated(), userid: req.user._id });
+  res.render("feeds/new", { isLoggedIn: req.isAuthenticated()});
 };
 
 module.exports.create = async (req, res) => {
   const feed = new Feed(req.body);
-  feed.author = req.user;
+  feed.author = req.user._id;
   await feed.save();
 
-  req.user.feeds.push(feed);
-  await req.user.save();
-
-  res.redirect("/feeds");
+  res.redirect("/");
 };
 
 module.exports.upvotefeed = async (req, res) => {
@@ -66,7 +86,7 @@ module.exports.upvotefeed = async (req, res) => {
       feed.upvotes.pull(req.user);   
     }
     feed.save();
-    res.redirect(`/feeds/${req.params.id}`);
+    res.redirect(`/m/${req.params.id}`);
   }
   else{
     req.flash("error", "Please Login!");//Redirect to login?
@@ -91,7 +111,7 @@ module.exports.comment = async (req, res) => {
   else{
     req.flash("error", "Please Login!");//Redirect to login?
   }
-  res.redirect(`/feeds/${req.params.id}`);
+  res.redirect(`/m/${req.params.id}`);
 }
 
 module.exports.upvotecomment = async (req, res) => {
@@ -109,7 +129,7 @@ module.exports.upvotecomment = async (req, res) => {
       comment.upvotes.pull(req.user);
     }
     comment.save();
-    res.redirect(`/feeds/${req.params.feedid}`);
+    res.redirect(`/m/${req.params.feedid}`);
   }
   else{
     req.flash("error", "Please Login!");//Redirect to login?
@@ -133,5 +153,5 @@ module.exports.reply = async (req, res) => {
   else{
     req.flash("error", "Please Login!");//Redirect to login?
   }
-  res.redirect(`/feeds/${req.params.id}`);
+  res.redirect(`/m/${req.params.id}`);
 }
