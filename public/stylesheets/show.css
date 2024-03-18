@@ -3,6 +3,7 @@
 }
 
 #subredditProfile {
-    max-width: 75px;
+    max-width: 30px;
+    height: auto;
     border-radius: 50%;
 }

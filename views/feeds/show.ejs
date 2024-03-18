@@ -1,39 +1,87 @@
 <%layout('layouts/boilerplate')%>
 <link rel="stylesheet" href="/stylesheets/show.css" />
 
-<div class="d-flex justify-content-center align-items-center min-vh-100">
-  <div class="card p-2" id="post">
-    <div class="d-flex justify-content-between">
-      <div id="start">
-        <img
-          class="col-4"
-          src="/assets/profile.jpg"
-          alt="subredditProfile"
-          id="subredditProfile"
-        />
-        <div class="d-flex flex-column">
-          <span>m/subreddit</span>
-          <span><%=feed.author.username%></span>
+<div class="bg-dark min-vw-100 p-3" id="post">
+  <div class="d-flex justify-content-between text-white" id="credit-bar">
+    <div id="start" class="d-flex align-items-center justify-content-center">
+      <img
+        class="col-4"
+        src="/assets/profile.jpg"
+        alt="subredditProfile"
+        id="subredditProfile"
+      />
+      <div class="d-flex flex-column">
+        <div class="d-flex ms-2">
+          <span id="post-subreddit">m/subreddit</span>
+          <span class="ms-1" id="post-date">5 hr. ago</span>
         </div>
-      </div>
-      <div id="end">
-        <!--create a toggle for below options-->
-        <!--<div class="d-flex">-->
-        <!--<a href="/" class="btn btn-secondary m-2">Back</a>-->
-        <!--<% if(isOwner) { %>-->
-        <!--<a href="/m/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a>-->
-        <!--<form action="/m/<%=feed.id%>?_method=DELETE" method="POST">-->
-        <!--<button type="submit" class="btn btn-danger m-2">Delete</button>-->
-        <!--</form>-->
-        <!--<% } %>-->
-        <!--</div>-->
-        <button class="btn rounded border col-4">X</button>
+        <span class="ms-2" id="username"><%=feed.author.username%></span>
       </div>
     </div>
+    <div id="end">
+      <!--create a toggle for below options-->
+      <!--<div class="d-flex">-->
+      <!--<a href="/" class="btn btn-secondary m-2">Back</a>-->
+      <!--<% if(isOwner) { %>-->
+      <!--<a href="/m/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a>-->
+      <!--<form action="/m/<%=feed.id%>?_method=DELETE" method="POST">-->
+      <!--<button type="submit" class="btn btn-danger m-2">Delete</button>-->
+      <!--</form>-->
+      <!--<% } %>-->
+      <!--</div>-->
+      <button class="btn text-white">...</button>
+    </div>
+  </div>
 
-    <div class="row">
-      <h2 class="fw-bold"><%= feed.title %></h2>
-      <h3><%= feed.description %></h3>
+  <div class="text-white">
+    <h2 class="fw-bold mt-1 mb-2"><%= feed.title %></h2>
+    <h3><%= feed.description %></h3>
+  </div>
+
+  <div id="upvote" class="d-flex mt-4">
+    <div id="votes" class="border rounded me-2 p-1 d-flex">
+      <form action="/m/<%=feed.id%>/upvotefeed" method="post">
+        <button class="text-decoration-none bg-dark border-0 p-0 text-white">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-arrow-up-short"
+            viewBox="0 0 16 16"
+            id="upvote-button"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5"
+            />
+          </svg>
+        </button>
+      </form>
+      <span class="mx-1"
+        ><%= feed.upvotes.length - feed.downvotes.length %></span
+      >
+      <form action="/m/<%=feed.id%>/downvotefeed" method="post">
+        <button class="text-decoration-none bg-dark border-0 p-0 text-white">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-arrow-down-short"
+            viewBox="0 0 16 16"
+            id="downvote-button"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"
+            />
+          </svg>
+        </button>
+      </form>
+    </div>
+    <div id="comments">
+      <span>0</span>
     </div>
   </div>
 </div>
