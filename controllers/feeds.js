@@ -28,20 +28,18 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.show = async (req, res) => {
-  const feed = await Feed.findById(req.params.id).populate("author");
+  const feed = await Feed.findById(req.params.id)
+    .populate("author");
+  let comments;
 
-  const comments = await Comment.find({_id: feed.comments})
-                    .populate("author")
-                    .populate({path: "reply", 
-                              populate: [
-                                {path: "author"}, 
-                                {path: "reply"}
-                              ]
-                            });
+    try {
+        comments = await Comment.find({_id: feed.comments}).populate("author");
+    } catch (e) {
+        console.log(e);
+    }
 
-  console.log(comments[0].reply[0]);
   const isLoggedIn = req.isAuthenticated();
-  res.render("feeds/show", { feed, comments, isLoggedIn , isOwner: isLoggedIn ? feed?.author._id.equals(req?.user?._id) : false });
+  res.render("feeds/show", { feed, comments, isLoggedIn , isOwner: isLoggedIn ? feed.author._id.equals(req?.user?._id) : false });
 };
 
 module.exports.edit = async (req, res) => {
@@ -76,11 +74,16 @@ module.exports.create = async (req, res) => {
 module.exports.upvotefeed = async (req, res) => {
 
   if(req?.user){
-    const feedvoted = await Feed.find({_id: req.params.id, upvotes: req.user._id});
+    const feedUpVoted = await Feed.find({_id: req.params.id, upvotes: req.user._id});
+    const feedDownVoted = await Feed.find({_id: req.params.id, downvotes: req.user._id});
     const feed = await Feed.findById(req.params.id);
     //logged in
 
-    if(feedvoted.length == 0){
+    if (feedDownVoted.length > 0) { // if it is downvoted, undo
+        feed.downvotes.pull(req.user);
+    }
+
+    if(feedUpVoted.length == 0){
       //Unvoted then add
       feed.upvotes.push(req.user);
     }else{
@@ -88,14 +91,46 @@ module.exports.upvotefeed = async (req, res) => {
       feed.upvotes.pull(req.user);   
     }
     feed.save();
-    // res.redirect(`/m/${req.params.id}`);
+    res.redirect(`/m/${req.params.id}`);
   }
   else{
-    req.flash("error", "Please Login!");//Redirect to login?
+    req.flash("error", "Please Login!");
+    //Redirect to login
+    res.redirect("/login");
     //Reload page
+    //res.redirect(req.get('referer'));
   }
-  res.redirect(req.get('referer'));
 }
+
+module.exports.downvotefeed = async (req, res) => {
+  if(req?.user){
+
+      const feedUpVoted = await Feed.find({_id: req.params.id, upvotes: req.user._id});
+    const feedDownVoted = await Feed.find({_id: req.params.id, downvotes: req.user._id});
+    const feed = await Feed.findById(req.params.id);
+    //logged in
+
+    if (feedUpVoted.length > 0) { // if it is upvoted, undo
+        feed.upvotes.pull(req.user);
+    }
+
+    if(feedDownVoted.length == 0){
+      //Unvoted then add
+      feed.downvotes.push(req.user);
+    }else{
+      //Voted then negate
+      feed.downvotes.pull(req.user);   
+    }
+    feed.save();
+    res.redirect(`/m/${req.params.id}`);
+  }
+  else{
+    req.flash("error", "Please Login!");
+    //Redirect to login
+    res.redirect("/login");
+  }
+}
+
 
 //Comment
 module.exports.comment = async (req, res) => {
@@ -112,9 +147,9 @@ module.exports.comment = async (req, res) => {
   }
   else{
     req.flash("error", "Please Login!");//Redirect to login?
+    res.redirect("/login");
   }
-  // res.redirect(`/m/${req.params.id}`);
-  res.redirect(req.get('referer'));
+  res.redirect(`/m/${req.params.id}`);
 }
 
 module.exports.upvotecomment = async (req, res) => {
@@ -132,13 +167,13 @@ module.exports.upvotecomment = async (req, res) => {
       comment.upvotes.pull(req.user);
     }
     comment.save();
-    // res.redirect(`/m/${req.params.feedid}`);
+    res.redirect(`/m/${req.params.feedid}`);
   }
   else{
-    req.flash("error", "Please Login!");//Redirect to login?    
+    req.flash("error", "Please Login!");//Redirect to login?
+    //Reload page
+    res.redirect(req.get('referer'));
   }
-  res.redirect(req.get('referer'));
-
 }
 
 module.exports.reply = async (req, res) => {
@@ -146,16 +181,15 @@ module.exports.reply = async (req, res) => {
   if(req?.user){
     const newcomment = new Comment({
       author: req.user,
-      description: req.body.reply,
+      description: req.body.comment,
       date: Date.now(),
     });
-    await newcomment.save();
+    await comment.save();
     comment.reply.push(newcomment);
    await comment.save();
   }
   else{
     req.flash("error", "Please Login!");//Redirect to login?
   }
-  //res.redirect(`/m/${req.params.id}`);
-  res.redirect(req.get('referer'));
+  res.redirect(`/m/${req.params.id}`);
 }
