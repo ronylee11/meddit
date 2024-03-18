@@ -74,11 +74,16 @@ module.exports.create = async (req, res) => {
 module.exports.upvotefeed = async (req, res) => {
 
   if(req?.user){
-    const feedvoted = await Feed.find({_id: req.params.id, upvotes: req.user._id});
+    const feedUpVoted = await Feed.find({_id: req.params.id, upvotes: req.user._id});
+    const feedDownVoted = await Feed.find({_id: req.params.id, downvotes: req.user._id});
     const feed = await Feed.findById(req.params.id);
     //logged in
 
-    if(feedvoted.length == 0){
+    if (feedDownVoted.length > 0) { // if it is downvoted, undo
+        feed.downvotes.pull(req.user);
+    }
+
+    if(feedUpVoted.length == 0){
       //Unvoted then add
       feed.upvotes.push(req.user);
     }else{
@@ -96,6 +101,36 @@ module.exports.upvotefeed = async (req, res) => {
     //res.redirect(req.get('referer'));
   }
 }
+
+module.exports.downvotefeed = async (req, res) => {
+  if(req?.user){
+
+      const feedUpVoted = await Feed.find({_id: req.params.id, upvotes: req.user._id});
+    const feedDownVoted = await Feed.find({_id: req.params.id, downvotes: req.user._id});
+    const feed = await Feed.findById(req.params.id);
+    //logged in
+
+    if (feedUpVoted.length > 0) { // if it is upvoted, undo
+        feed.upvotes.pull(req.user);
+    }
+
+    if(feedDownVoted.length == 0){
+      //Unvoted then add
+      feed.downvotes.push(req.user);
+    }else{
+      //Voted then negate
+      feed.downvotes.pull(req.user);   
+    }
+    feed.save();
+    res.redirect(`/m/${req.params.id}`);
+  }
+  else{
+    req.flash("error", "Please Login!");
+    //Redirect to login
+    res.redirect("/login");
+  }
+}
+
 
 //Comment
 module.exports.comment = async (req, res) => {

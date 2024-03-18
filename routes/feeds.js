@@ -13,6 +13,7 @@ router
     .get("/m/:id/edit", feedController.edit)
     .post("/m/:id/comment", feedController.comment)
     .post("/m/:id/upvotefeed", feedController.upvotefeed)
+    .post("/m/:id/downvotefeed", feedController.downvotefeed)
     .post("/m/:feedid/:id/upvotecomment", feedController.upvotecomment)
     .post("/m/:id/reply", feedController.reply)
     

@@ -1,7 +1,7 @@
 <%layout('layouts/boilerplate')%>
 <link rel="stylesheet" href="/stylesheets/show.css" />
 
-<div class="bg-dark min-vw-100 p-2" id="post">
+<div class="bg-dark min-vw-100 p-3" id="post">
   <div class="d-flex justify-content-between text-white" id="credit-bar">
     <div id="start" class="d-flex align-items-center justify-content-center">
       <img
@@ -58,21 +58,27 @@
           </svg>
         </button>
       </form>
-      <span class="mx-1"><%= feed.upvotes.length %></span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-arrow-down-short"
-        viewBox="0 0 16 16"
-        id="downvote-button"
+      <span class="mx-1"
+        ><%= feed.upvotes.length - feed.downvotes.length %></span
       >
-        <path
-          fill-rule="evenodd"
-          d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"
-        />
-      </svg>
+      <form action="/m/<%=feed.id%>/downvotefeed" method="post">
+        <button class="text-decoration-none bg-dark border-0 p-0 text-white">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-arrow-down-short"
+            viewBox="0 0 16 16"
+            id="downvote-button"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"
+            />
+          </svg>
+        </button>
+      </form>
     </div>
     <div id="comments">
       <span>0</span>
