@@ -89,9 +89,11 @@ module.exports.upvotefeed = async (req, res) => {
     res.redirect(`/m/${req.params.id}`);
   }
   else{
-    req.flash("error", "Please Login!");//Redirect to login?
+    req.flash("error", "Please Login!");
+    //Redirect to login
+    res.redirect("/login");
     //Reload page
-    res.redirect(req.get('referer'));
+    //res.redirect(req.get('referer'));
   }
 }
 
@@ -110,6 +112,7 @@ module.exports.comment = async (req, res) => {
   }
   else{
     req.flash("error", "Please Login!");//Redirect to login?
+    res.redirect("/login");
   }
   res.redirect(`/m/${req.params.id}`);
 }
