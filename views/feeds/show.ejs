@@ -1,77 +1,116 @@
 <%layout('layouts/boilerplate')%>
-<link rel="stylesheet" href="/stylesheets/show.css" />
+  <link rel="stylesheet" href="/stylesheets/show.css" />
 
-<div class="d-flex justify-content-center align-items-center min-vh-100">
-  <div class="card p-2" id="post">
-    <div class="d-flex justify-content-between">
-      <div id="start">
-        <img
-          class="col-4"
-          src="/assets/profile.jpg"
-          alt="subredditProfile"
-          id="subredditProfile"
-        />
-        <div class="d-flex flex-column">
-          <span>m/subreddit</span>
-          <span><%=feed.author.username%></span>
+  <div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-2" id="post">
+      <a class="btn-close" aria-label="Close" href="/"></a>
+      <div class="d-flex justify-content-between">
+        <div id="start">
+          <img class="col-4" src="/assets/profile.jpg" alt="subredditProfile" id="subredditProfile" />
+          <div class="d-flex flex-column">
+            <span>m/subreddit</span>
+            <span>
+              <%=feed.author.username%>
+            </span>
+          </div>
+        </div>
+        <div id="end">
+          <% if(isOwner) { %>
+            <div class="dropdown">
+              <a class="btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                  <path
+                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                </svg>
+              </a>
+              <!--create a toggle for below options-->
+              <ul class="dropdown-menu">
+                <li><a href="/m/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a></li>
+                <li>
+                  <form action="/m/<%=feed.id%>?_method=DELETE" method="post">
+                    <button href="" class="btn btn-danger m-2">Delete</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+            <% } %>
         </div>
       </div>
-      <div id="end">
-        <!--create a toggle for below options-->
-        <!--<div class="d-flex">-->
-        <!--<a href="/" class="btn btn-secondary m-2">Back</a>-->
-        <!--<% if(isOwner) { %>-->
-        <!--<a href="/m/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a>-->
-        <!--<form action="/m/<%=feed.id%>?_method=DELETE" method="POST">-->
-        <!--<button type="submit" class="btn btn-danger m-2">Delete</button>-->
-        <!--</form>-->
-        <!--<% } %>-->
-        <!--</div>-->
-        <button class="btn rounded border col-4">X</button>
+      <div class="row">
+        <h2 class="fw-bold">
+          <%= feed.title %>
+        </h2>
+        <h3>
+          <%= feed.description %>
+        </h3>
+      </div>
+      <!--Upvotes-->
+      <div class="d-flex">
+        <form action="/m/<%=feed.id%>/upvotefeed" method="post">
+          <label>Upvotes: <%= feed.upvotes.length %></label>
+          <button type="submit" class="btn btn-secondary m-2">
+            Up
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
+            </svg>
+          </button>
+        </form>
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <h2 class="fw-bold"><%= feed.title %></h2>
-      <h3><%= feed.description %></h3>
+  <!--Make it card-->
+  <div class="d-flex justify-content-center align-items-center min-vh-100">
+
+    <div class="card" style="width: 18rem;">
+      <ul class="list-group list-group-flush">
+        <% for (const comment of comments) {%>
+          <li>
+            <div class="card-body">
+              <h5>
+                <%= comment.author.username %>&nbsp;says:
+              </h5>
+              <p class="card-text">
+                <%= comment.description %>
+              </p>
+            </div>
+            <div>
+              <!--Upvote Comment-->
+              <form class="d-flex" action="/m/<%=feed.id%>/<%=comment.id%>/upvotecomment" method="post">
+                <label><%= comment.upvotes.length %></label>
+                <button type="submit" class="btn btn-secondary m-2">
+                  <label>Up</label>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
+                  </svg>
+                </button>
+              </form>
+              <!--Reply-->
+              <form action="/m/<%=comment.id%>/reply" method="post">
+                <input type="text" class="form-control" name="reply" />
+                <button type="submit" class="btn btn-secondary m-2">Reply</button>
+              </form>
+            </div>
+          </li>
+          <% } %>
+          <li>
+          <form action="/m/<%=feed.id%>/comment" method="post">
+            <p>Write a comment:</p>
+            <div class="row">
+              <div class="col align-middle">
+                <input type="text" class="form-control" name="comment" />
+              </div>
+              <div class="col-4 align-middle">
+                <button type="submit" class="btn btn-secondary m-2">Post</button>
+              </div>
+            </div>
+          </form>
+          </li>
+      </ul>
     </div>
   </div>
-</div>
-
-<div class="d-flex">
-  <form action="/m/<%=feed.id%>/upvotefeed" method="post">
-    <p><%= feed.upvotes.length %></p>
-    <button type="submit" class="btn btn-secondary m-2">Upvote</button>
-  </form>
-</div>
-<!--Make it card-->
-<% for (const comment of comments) {%>
-<div class="d-flex">
-  <h5><%= comment.author.username %></h5>
-  <p>says:</p>
-  <br />
-  <p class="card-text"><%= comment.description %></p>
-</div>
-<div>
-  <!--Upvote Comment-->
-  <form
-    class="d-flex"
-    action="/m/<%=feed.id%>/<%=comment.id%>/upvotecomment"
-    method="post"
-  >
-    <p><%= comment.upvotes.length %></p>
-    <button type="submit" class="btn btn-secondary m-2">Upvote</button>
-  </form>
-  <!--Reply-->
-  <form action="/m/<%=comment.id%>/reply" method="post">
-    <input type="text" class="form-control" name="reply" />
-    <button type="submit" class="btn btn-secondary m-2">Reply</button>
-  </form>
-</div>
-<% } %>
-<div class="d-flex">
-  <form action="/m/<%=feed.id%>/comment" method="post">
-    <input type="text" class="form-control" name="comment" />
-    <button type="submit" class="btn btn-secondary m-2">Post</button>
-  </form>
-</div>
