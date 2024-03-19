@@ -38,10 +38,13 @@
     <h3><%= feed.description %></h3>
   </div>
 
-  <div id="upvote" class="d-flex mt-4">
+  <div class="d-flex mt-4">
     <div id="votes" class="border rounded me-2 p-1 d-flex">
       <form action="/m/<%=feed.id%>/upvotefeed" method="post">
-        <button class="text-decoration-none bg-dark border-0 p-0 text-white">
+        <button
+          class="text-decoration-none bg-dark border-0 p-0 text-white"
+          id="upvote"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -49,7 +52,7 @@
             fill="currentColor"
             class="bi bi-arrow-up-short"
             viewBox="0 0 16 16"
-            id="upvote-button"
+            id="upvote-icon"
           >
             <path
               fill-rule="evenodd"
@@ -62,7 +65,10 @@
         ><%= feed.upvotes.length - feed.downvotes.length %></span
       >
       <form action="/m/<%=feed.id%>/downvotefeed" method="post">
-        <button class="text-decoration-none bg-dark border-0 p-0 text-white">
+        <button
+          class="text-decoration-none bg-dark border-0 p-0 text-white"
+          id="downvote"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -70,7 +76,7 @@
             fill="currentColor"
             class="bi bi-arrow-down-short"
             viewBox="0 0 16 16"
-            id="downvote-button"
+            id="downvote-icon"
           >
             <path
               fill-rule="evenodd"
