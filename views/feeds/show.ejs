@@ -159,7 +159,7 @@
               <!--Write Reply-->
               <!--Need programatically toggle-->
               <div id="reply" class="collapse">
-                <form action="/m/<%=comment.id%>/reply" method="post">
+                <form action="/m/<%=feed.id%>/<%=comment.id%>/reply" method="post">
                   <textarea type="text" class="form-control bg-dark me-2 d-flex p-2 text-white" name="reply"></textarea>
                   <button type="submit" class="btn btn-secondary m-2">Comment</button>
                 </form>

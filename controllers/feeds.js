@@ -30,7 +30,8 @@ module.exports.index = async (req, res) => {
 module.exports.show = async (req, res) => {
   const feed = await Feed.findById(req.params.id)
     .populate("author");
-  let comments = await Comment.find({_id: feed.comments})
+  let comments
+  try{ comments = await Comment.find({_id: feed.comments})
                          .populate("author")
                          .populate({path: "reply",
                          populate: [
@@ -38,6 +39,7 @@ module.exports.show = async (req, res) => {
                             {path: "reply"}
                           ]
                          });
+      }catch (e){console.log(e);}
 
   const isLoggedIn = req.isAuthenticated();
   res.render("feeds/show", { feed, comments, isLoggedIn , isOwner: isLoggedIn ? feed.author._id.equals(req?.user?._id) : false });
@@ -137,6 +139,7 @@ module.exports.downvotefeed = async (req, res) => {
 module.exports.comment = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
   if(req?.user){
+    if(req?.body.comment.trim() !== ""){
     const comment = new Comment({
       author: req.user,
       description: req.body.comment,
@@ -145,6 +148,10 @@ module.exports.comment = async (req, res) => {
     await comment.save();
     feed.comments.push(comment);
    await feed.save();
+  }
+  else{
+    req.flash("error", "Write something!");
+  }
   }
   else{
     req.flash("error", "Please Login!");//Redirect to login?
@@ -215,17 +222,23 @@ module.exports.downvotecomment = async (req, res) => {
 module.exports.reply = async (req, res) => {
   const comment = await Comment.findById(req.params.id);
   if(req?.user){
-    const newcomment = new Comment({
-      author: req.user,
-      description: req.body.comment,
-      date: Date.now(),
-    });
-    await comment.save();
-    comment.reply.push(newcomment);
-   await comment.save();
+    if(req?.body.reply.trim() !== ""){
+      const newcomment = new Comment({
+        author: req.user,
+        description: req.body.reply,
+        date: Date.now(),
+      });
+      await newcomment.save();
+      comment.reply.push(newcomment);
+      await comment.save();
+    }
+    else{
+      req.flash("error", "Write something!");
+    }
   }
+  
   else{
     req.flash("error", "Please Login!");//Redirect to login?
   }
-  res.redirect(`/m/${req.params.id}`);
+  res.redirect(`/m/${req.params.feedid}`);
 }
