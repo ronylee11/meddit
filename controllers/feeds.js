@@ -30,13 +30,14 @@ module.exports.index = async (req, res) => {
 module.exports.show = async (req, res) => {
   const feed = await Feed.findById(req.params.id)
     .populate("author");
-  let comments;
-
-    try {
-        comments = await Comment.find({_id: feed.comments}).populate("author");
-    } catch (e) {
-        console.log(e);
-    }
+  let comments = await Comment.find({_id: feed.comments})
+                         .populate("author")
+                         .populate({path: "reply",
+                         populate: [
+                            {path: "author"},
+                            {path: "reply"}
+                          ]
+                         });
 
   const isLoggedIn = req.isAuthenticated();
   res.render("feeds/show", { feed, comments, isLoggedIn , isOwner: isLoggedIn ? feed.author._id.equals(req?.user?._id) : false });
@@ -153,19 +154,54 @@ module.exports.comment = async (req, res) => {
 }
 
 module.exports.upvotecomment = async (req, res) => {
-  const commentvoted = await Comment.find({_id: req.params.id, upvotes: req.user._id});
+  const commentUpVoted = await Comment.find({_id: req.params.id, upvotes: req.user._id});
+  const commentDownVoted = await Comment.find({_id: req.params.id, downvotes: req.user._id});
   const comment = await Comment.findById(req.params.id);
 
   if(req?.user){
     //logged in
 
-    if(commentvoted.length == 0){
+    if (commentDownVoted.length > 0) { // if it is downvoted, undo
+      comment.downvotes.pull(req.user);
+    }
+    if(commentUpVoted.length == 0){
       //Unvoted then add
       comment.upvotes.push(req.user);
     }else{
       //Voted then negate
       comment.upvotes.pull(req.user);
     }
+
+    comment.save();
+    res.redirect(`/m/${req.params.feedid}`);
+  }
+  else{
+    req.flash("error", "Please Login!");//Redirect to login?
+    //Reload page
+    res.redirect(req.get('referer'));
+  }
+}
+
+module.exports.downvotecomment = async (req, res) => {
+  const commentUpVoted = await Comment.find({_id: req.params.id, upvotes: req.user._id});
+  const commentDownVoted = await Comment.find({_id: req.params.id, downvotes: req.user._id});
+  const comment = await Comment.findById(req.params.id);
+
+  if(req?.user){
+    //logged in
+
+    if (commentUpVoted.length > 0) { // if it is downvoted, undo
+      comment.upvotes.pull(req.user);
+    }
+
+    if(commentDownVoted.length == 0){
+      //Unvoted then add
+      comment.downvotes.push(req.user);
+    }else{
+      //Voted then negate
+      comment.downvotes.pull(req.user);
+    }
+
     comment.save();
     res.redirect(`/m/${req.params.feedid}`);
   }
