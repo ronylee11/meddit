@@ -111,7 +111,7 @@
         </div>
 
         </li>
-        <% for (const comment of comments) {%>
+        <% comments.forEach( function(comment, index) {%>
           <li>
             <h5>
               <%= comment.author.username %>&nbsp;says:
@@ -119,7 +119,6 @@
             <p>
               <%= comment.description %>
             </p>
-            <div>
               <!--Vote Comment-->
               <div id="commentOption" class="d-flex">
 
@@ -150,15 +149,14 @@
                 <button 
                   class="btn btn-secondary btn-sm"
                   data-bs-toggle="collapse" 
-                  data-bs-target="#reply" 
+                  data-bs-target="#reply<%=comment.id%>" 
                   aria-expanded="true" 
-                  aria-controls="reply" 
+                  aria-controls="reply<%=comment.id%>" 
                 >Reply</button>
               </div>
               </div>
               <!--Write Reply-->
-              <!--Need programatically toggle-->
-              <div id="reply" class="collapse">
+              <div id="reply<%=comment.id%>" class="collapse">
                 <form action="/m/<%=feed.id%>/<%=comment.id%>/reply" method="post">
                   <textarea type="text" class="form-control bg-dark me-2 d-flex p-2 text-white" name="reply"></textarea>
                   <button type="submit" class="btn btn-secondary m-2">Comment</button>
@@ -166,12 +164,10 @@
               </div>
 
               <!--Show Replies-->
-
-
-            </div>
+              <%- include ("../components/reply", {reply: comment.reply}) %>
           </li>
-          <% } %>
-      </ul>
+        <% }) %>
+        </ul>
     </div>
   </div>
 

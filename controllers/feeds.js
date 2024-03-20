@@ -161,11 +161,10 @@ module.exports.comment = async (req, res) => {
 }
 
 module.exports.upvotecomment = async (req, res) => {
-  const commentUpVoted = await Comment.find({_id: req.params.id, upvotes: req.user._id});
-  const commentDownVoted = await Comment.find({_id: req.params.id, downvotes: req.user._id});
-  const comment = await Comment.findById(req.params.id);
-
   if(req?.user){
+    const commentUpVoted = await Comment.find({_id: req.params.id, upvotes: req.user._id});
+    const commentDownVoted = await Comment.find({_id: req.params.id, downvotes: req.user._id});
+    const comment = await Comment.findById(req.params.id);
     //logged in
 
     if (commentDownVoted.length > 0) { // if it is downvoted, undo
@@ -190,12 +189,11 @@ module.exports.upvotecomment = async (req, res) => {
 }
 
 module.exports.downvotecomment = async (req, res) => {
-  const commentUpVoted = await Comment.find({_id: req.params.id, upvotes: req.user._id});
-  const commentDownVoted = await Comment.find({_id: req.params.id, downvotes: req.user._id});
-  const comment = await Comment.findById(req.params.id);
-
   if(req?.user){
     //logged in
+    const commentUpVoted = await Comment.find({_id: req.params.id, upvotes: req.user._id});
+    const commentDownVoted = await Comment.find({_id: req.params.id, downvotes: req.user._id});
+    const comment = await Comment.findById(req.params.id);
 
     if (commentUpVoted.length > 0) { // if it is downvoted, undo
       comment.upvotes.pull(req.user);
@@ -239,6 +237,7 @@ module.exports.reply = async (req, res) => {
   
   else{
     req.flash("error", "Please Login!");//Redirect to login?
+    res.redirect("/login");
   }
   res.redirect(`/m/${req.params.feedid}`);
 }
