@@ -22,4 +22,7 @@ router
 
 router.route("/logout").get(userController.logout);
 
+router.route("/user/:id").get(userController.viewProfile);
+router.route("/user").get(userController.viewProfile);
+
 module.exports = router;

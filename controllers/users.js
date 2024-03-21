@@ -53,3 +53,13 @@ module.exports.logout = (req, res) => {
   req.flash("success", "Goodbye!");
   res.redirect("/");
 };
+
+module.exports.viewProfile = async (req, res) => {
+  if(req.param.id || req.user){
+    const user = await User.findById(req.param.id ? req.param.id : req.user);
+    
+    res.render("users/profile", {isLoggedIn : req.isAuthenticated(), user: user });
+  }else{
+    res.redirect(req.get('referer'));
+  }
+}
