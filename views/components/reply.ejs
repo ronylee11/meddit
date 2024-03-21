@@ -1,0 +1,48 @@
+<% reply.forEach( function(rpy, index) {%>
+    <div id="reply" class="ml-3 mx-2">
+        <h5>
+            <%= rpy.author.username %>&nbsp;says:
+        </h5>
+        <p>
+            <%= rpy.description %>
+        </p>
+        <div id="commentOption" class="d-flex">
+
+            <div id="commentvotes" class="border rounded me-2 p-1 d-inline-flex">
+                <form action="/m/<%=feed.id%>/<%=rpy.id%>/upvotecomment" method="post">
+                    <button class="text-decoration-none bg-dark border-0 p-0 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-up-short" viewBox="0 0 16 16" id="upvote-button">
+                            <path fill-rule="evenodd"
+                                d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
+                        </svg>
+                    </button>
+                </form>
+                <span class="mx-1">
+                    <%= rpy.upvotes.length - rpy.downvotes.length %>
+                </span>
+                <form action="/m/<%=feed.id%>/<%=rpy.id%>/downvotecomment" method="post">
+                    <button class="text-decoration-none bg-dark border-0 p-0 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-down-short" viewBox="0 0 16 16" id="downvote-button">
+                            <path fill-rule="evenodd"
+                                d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+            <div>
+                <button class="btn btn-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#reply<%=rpy.id%>"
+                    aria-expanded="true" aria-controls="reply<%=rpy.id%>">Reply</button>
+            </div>
+        </div>
+        <!--Write Reply-->
+        <div id="reply<%=rpy.id%>" class="collapse">
+            <form action="/m/<%=feed.id%>/<%=rpy.id%>/reply" method="post">
+                <textarea type="text" class="form-control bg-dark me-2 d-flex p-2 text-white" name="reply"></textarea>
+                <button type="submit" class="btn btn-secondary m-2">Comment</button>
+            </form>
+        </div>
+        <%- include ("../components/reply", {reply: rpy.reply}) %>
+    </div>
+<% }) %>
