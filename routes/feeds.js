@@ -15,7 +15,8 @@ router
     .post("/m/:id/upvotefeed", feedController.upvotefeed)
     .post("/m/:id/downvotefeed", feedController.downvotefeed)
     .post("/m/:feedid/:id/upvotecomment", feedController.upvotecomment)
-    .post("/m/:id/reply", feedController.reply)
+    .post("/m/:feedid/:id/downvotecomment", feedController.downvotecomment)
+    .post("/m/:feedid/:id/reply", feedController.reply)
     
 
 router
