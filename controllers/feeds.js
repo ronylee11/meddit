@@ -31,15 +31,9 @@ module.exports.show = async (req, res) => {
   const feed = await Feed.findById(req.params.id)
     .populate("author");
   let comments
-  try{ comments = await Comment.find({_id: feed.comments})
-                         .populate("author")
-                         .populate({path: "reply",
-                         populate: [
-                            {path: "author"},
-                            {path: "reply"}
-                          ]
-                         });
-      }catch (e){console.log(e);}
+  try{ 
+    comments = await Comment.find({_id: feed.comments}).populate("author");
+  }catch (e){console.log(e);}
 
   const isLoggedIn = req.isAuthenticated();
   res.render("feeds/show", { feed, comments, isLoggedIn , isOwner: isLoggedIn ? feed.author._id.equals(req?.user?._id) : false });

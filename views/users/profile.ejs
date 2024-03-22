@@ -1,9 +1,9 @@
 <%layout('layouts/boilerplate')%>
-<div class="bg-dark min-vw-100 p-3">
+<div class="bg-dark min-vw-100 m-3">
     <div class="d-flex justify-content-between text-white" id="userdetail">
-        <p>
+        <h2>
             <%= user.username %>
-        <p>
+        </h2>
     </div>
     <nav aria-label="...">
         <ul class="pagination">
@@ -23,11 +23,11 @@
       </nav>
     <div id="pagination">
         <div id="followedSub">
-            <% //user.subreddit.forEach( function(sub, index) {%>
+            <% user.subreddit.forEach( function(sub, index) {%>
                 <p>
-                    <%= //sub.subname%>
+                    <%= sub.subname%>
                 </p>
-            <% //}) %>
+            <% }) %>
         </div>
     </div>
 </div>

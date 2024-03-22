@@ -10,9 +10,9 @@
             <span id="post-subreddit">m/subreddit</span>
             <span class="ms-1" id="post-date">5 hr. ago</span>
           </div>
-          <span class="ms-2" id="username">
+          <a href="/user/<%=feed.author.id%>" class="ms-2 text-decoration-none text-white" id="username">
             <%=feed.author.username%>
-          </span>
+          </a>
         </div>
       </div>
       <div id="end">
@@ -113,8 +113,12 @@
         </li>
         <% comments.forEach( function(comment, index) {%>
           <li>
+            <div class="mt-2">
             <h5>
-              <%= comment.author.username %>&nbsp;says:
+              <a href="/user/<%=feed.author.id%>" class="ms-2 text-decoration-none text-white" id="username">
+              <%= comment.author.username %>
+              </a>
+              &nbsp;says:
             </h5>
             <p>
               <%= comment.description %>
@@ -165,6 +169,7 @@
 
               <!--Show Replies-->
               <%- include ("../components/reply", {reply: comment.reply}) %>
+            </div>
           </li>
         <% }) %>
         </ul>

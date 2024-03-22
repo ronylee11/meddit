@@ -1,7 +1,10 @@
 <% reply.forEach( function(rpy, index) {%>
-    <div id="reply" class="ml-3 mx-2">
+    <div id="reply" class="mx-1 px-5 py-2 border-start rounded-bottom">
         <h5>
-            <%= rpy.author.username %>&nbsp;says:
+            <a href="/user/<%=rpy.author.id%>" class="ms-2 text-decoration-none text-white">
+                <%= rpy.author.username %>
+            </a>
+            &nbsp;says:
         </h5>
         <p>
             <%= rpy.description %>

@@ -55,11 +55,12 @@ module.exports.logout = (req, res) => {
 };
 
 module.exports.viewProfile = async (req, res) => {
-  if(req.param.id || req.user){
-    const user = await User.findById(req.param.id ? req.param.id : req.user);
+  if(req.params.id !== undefined || req.user){
+    const user = await User.findById(req.params.id ? req.params.id : req.user);
     
     res.render("users/profile", {isLoggedIn : req.isAuthenticated(), user: user });
   }else{
-    res.redirect(req.get('referer'));
+    req.flash("error", "Please Login!");
+    res.redirect("/login");
   }
 }
