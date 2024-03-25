@@ -1,0 +1,33 @@
+<%layout('layouts/boilerplate')%>
+<div class="bg-dark min-vw-100 m-3">
+    <div class="d-flex justify-content-between text-white" id="userdetail">
+        <h2>
+            <%= user.username %>
+        </h2>
+    </div>
+    <nav aria-label="...">
+        <ul class="pagination">
+          <li class="page-item">
+            <span class="page-link">Followed Sub</span>
+          </li>
+          <li class="page-item">
+            <span class="page-link">Something Else</span>
+          </li>
+          <li class="page-item">
+            <span class="page-link">Something Else</span>
+          </li>
+          <li class="page-item">
+            <span class="page-link">Something Else</span>
+          </li>
+        </ul>
+      </nav>
+    <div id="pagination">
+        <div id="followedSub">
+            <% user.subreddit.forEach( function(sub, index) {%>
+                <p>
+                    <%= sub.subname%>
+                </p>
+            <% }) %>
+        </div>
+    </div>
+</div>

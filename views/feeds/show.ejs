@@ -3,20 +3,16 @@
 
 <div class="bg-dark min-vw-100 p-3" id="post">
     <div class="d-flex justify-content-between text-white" id="credit-bar">
-        <div id="start" class="d-flex align-items-center justify-content-center">
-            <img
-                    class="col-4"
-                    src="/assets/profile.jpg"
-                    alt="subredditProfile"
-                    id="subredditProfile"
-                    />
-            <div class="d-flex flex-column">
-                <div class="d-flex ms-2">
-                    <span id="post-subreddit">m/subreddit</span>
-                    <span class="ms-1" id="post-date">5 hr. ago</span>
-                </div>
-                <span class="ms-2" id="username"><%=feed.author.username%></span>
-            </div>
+      <div id="start" class="d-flex align-items-center justify-content-center">
+        <img class="col-4" src="/assets/profile.jpg" alt="subredditProfile" id="subredditProfile" />
+        <div class="d-flex flex-column">
+          <div class="d-flex ms-2">
+            <span id="post-subreddit">m/subreddit</span>
+            <span class="ms-1" id="post-date">5 hr. ago</span>
+          </div>
+          <a href="/user/<%=feed.author.id%>" class="ms-2 text-decoration-none text-white" id="username">
+            <%=feed.author.username%>
+          </a>
         </div>
         <div id="end">
             <!--create a toggle for below options-->
@@ -174,8 +170,12 @@
 
         <% comments.forEach( function(comment, index) {%>
           <li>
+            <div class="mt-2">
             <h5>
-              <%= comment.author.username %>&nbsp;says:
+              <a href="/user/<%=feed.author.id%>" class="ms-2 text-decoration-none text-white" id="username">
+              <%= comment.author.username %>
+              </a>
+              &nbsp;says:
             </h5>
             <p>
               <%= comment.description %>
@@ -226,6 +226,7 @@
 
               <!--Show Replies-->
               <%- include ("../components/reply", {reply: comment.reply}) %>
+            </div>
           </li>
         <% }) %>
         </ul>

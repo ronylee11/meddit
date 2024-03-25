@@ -10,4 +10,9 @@ const commentSchema = new Schema({
   reply: [{type: Schema.Types.ObjectId, ref: "Comment" }]
 });
 
+commentSchema.pre("find", function(next){
+  this.populate("reply").populate("author");
+  next();
+});
+
 module.exports = Model("Comment", commentSchema);
