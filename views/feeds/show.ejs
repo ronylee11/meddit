@@ -1,7 +1,7 @@
 <%layout('layouts/boilerplate')%>
-  <link rel="stylesheet" href="/stylesheets/show.css" />
+<link rel="stylesheet" href="/stylesheets/show.css" />
 
-  <div class="bg-dark min-vw-100 p-3" id="post">
+<div class="bg-dark min-vw-100 p-3" id="post">
     <div class="d-flex justify-content-between text-white" id="credit-bar">
       <div id="start" class="d-flex align-items-center justify-content-center">
         <img class="col-4" src="/assets/profile.jpg" alt="subredditProfile" id="subredditProfile" />
@@ -14,69 +14,129 @@
             <%=feed.author.username%>
           </a>
         </div>
-      </div>
-      <div id="end">
-        <% if(isOwner) { %>
-          <div class="dropdown">
-            <a class="btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                <path
-                  d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-              </svg>
-            </a>
+        <div id="end">
             <!--create a toggle for below options-->
-            <ul class="dropdown-menu">
-              <li><a href="/m/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a></li>
-              <li>
-                <form action="/m/<%=feed.id%>?_method=DELETE" method="post">
-                  <button href="" class="btn btn-danger m-2">Delete</button>
-                </form>
-              </li>
-            </ul>
-          </div>
-          <% } %>
-      </div>
+            <!--<div class="d-flex">-->
+            <!--<a href="/" class="btn btn-secondary m-2">Back</a>-->
+            <!--<% if(isOwner) { %>-->
+            <!--<a href="/m/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a>-->
+            <!--<form action="/m/<%=feed.id%>?_method=DELETE" method="POST">-->
+            <!--<button type="submit" class="btn btn-danger m-2">Delete</button>-->
+            <!--</form>-->
+            <!--<% } %>-->
+            <!--</div>-->
+            <button class="btn text-white">...</button>
+        </div>
     </div>
 
     <div class="text-white">
-      <h2 class="fw-bold mt-1 mb-2">
-        <%= feed.title %>
-      </h2>
-      <h3>
-        <%= feed.description %>
-      </h3>
+        <h2 class="fw-bold mt-1 mb-2"><%= feed.title %></h2>
+        <h3><%= feed.description %></h3>
     </div>
-      <div id="votes" class="border rounded me-2 p-1 d-inline-flex">
-        <form action="/m/<%=feed.id%>/upvotefeed" method="post">
-          <button class="text-decoration-none bg-dark border-0 p-0 text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-arrow-up-short" viewBox="0 0 16 16" id="upvote-button">
-              <path fill-rule="evenodd"
-                d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5" />
-            </svg>
-          </button>
-        </form>
-        <span class="mx-1">
-          <%= feed.upvotes.length - feed.downvotes.length %>
-        </span>
-        <form action="/m/<%=feed.id%>/downvotefeed" method="post">
-          <button class="text-decoration-none bg-dark border-0 p-0 text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-arrow-down-short" viewBox="0 0 16 16" id="downvote-button">
-              <path fill-rule="evenodd"
-                d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
-            </svg>
-          </button>
-        </form>
-      </div>
-      <div class="mt-5">
-        <span>&nbsp;</span>
-      </div>
-    <div class="w-3" id="comments">
+
+    <div class="d-flex mt-4">
+        <div id="votes" class="border rounded me-2 p-1 d-flex">
+            <form action="/m/<%=feed.id%>/upvotefeed" method="post">
+                <button
+                        class="text-decoration-none bg-dark border-0 p-0 text-white"
+                        id="upvote"
+                        >
+                        <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                fill="currentColor"
+                                class="bi bi-arrow-up-short"
+                                viewBox="0 0 16 16"
+                                id="upvote-icon"
+                                >
+                                <path
+                                        fill-rule="evenodd"
+                                        d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5"
+                                        />
+                        </svg>
+                </button>
+            </form>
+            <span class="mx-1"
+                  ><%= feed.upvotes.length - feed.downvotes.length %></span
+              >
+              <form action="/m/<%=feed.id%>/downvotefeed" method="post">
+                  <button
+                          class="text-decoration-none bg-dark border-0 p-0 text-white"
+                          id="downvote"
+                          >
+                          <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="20"
+                                  height="20"
+                                  fill="currentColor"
+                                  class="bi bi-arrow-down-short"
+                                  viewBox="0 0 16 16"
+                                  id="downvote-icon"
+                                  >
+                                  <path
+                                          fill-rule="evenodd"
+                                          d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"
+                                          />
+                          </svg>
+                  </button>
+              </form>
+        </div>
+        <div
+                id="comments"
+                class="d-flex align-items-center justify-content-center border rounded p-1"
+                >
+                <a class="text-decoration-none text-white" 
+                   href="#" 
+                   data-bs-toggle="collapse" 
+                   data-bs-target="#writeComment" >
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-chat-left ms-2 me-1"
+                            viewBox="0 0 16 16"
+                            >
+                            <path
+                                    d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
+                                    />
+                    </svg>
+                        <span class="me-2"><%=feed.comments.length%></span>
+                </a>
+        </div>
+
+        <div
+                id="share"
+                class="border rounded p-1 ms-2 d-flex justify-content-center align-items-center"
+                >
+                <a href="#" class="text-decoration-none text-white">
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-box-arrow-up ms-1"
+                            viewBox="0 0 16 16"
+                            >
+                            <path
+                                    fill-rule="evenodd"
+                                    d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1z"
+                                    />
+                            <path
+                                    fill-rule="evenodd"
+                                    d="M7.646.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 1.707V10.5a.5.5 0 0 1-1 0V1.707L5.354 3.854a.5.5 0 1 1-.708-.708z"
+                                    />
+                    </svg>
+                        <span class="me-1">Share</span>
+                </a>
+        </div>
+    </div>
+
+    <div class="w-3 mt-4" id="comments">
       <ul>
         <!--Post comment-->
-        <li>
+        <li class="mb-5">
           <input class="collapse multi-collapse hide-self border rounded bg-dark me-2 p-1 d-flex p-2 text-white form-control" 
             id="commentToggle"
             data-bs-toggle="collapse" 
@@ -106,11 +166,8 @@
 
         </div>
 
-        <div class="mt-5">
-          <span>&nbsp;</span>
-        </div>
-
         </li>
+
         <% comments.forEach( function(comment, index) {%>
           <li>
             <div class="mt-2">
