@@ -8,10 +8,12 @@ module.exports.createUser = async (req, res) => {
   if(username && email.match(emailFormat) && password == cpassword){
     try{
       const user = new User({ username, email });
-      await User.register(user, password);
-      req.flash("success", "Successfully registered!");
-      res.redirect("/");
-
+      const registeredUser = await User.register(user, password);
+      req.login(registeredUser, (err) => {
+          if (err) return next(err);
+          req.flash("success", "Successfully registered!");
+          res.redirect("/");
+      });
     }catch (ex){
       console.log("Duplicate User");
       req.flash("error", "User already exist!");
