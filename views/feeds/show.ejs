@@ -3,31 +3,33 @@
 
 <div class="bg-dark min-vw-100 p-3" id="post">
     <div class="d-flex justify-content-between text-white flex-column" id="credit-bar">
-      <div id="start" class="d-flex align-items-center justify-content-start">
-        <img class="col-4" src="/assets/profile.jpg" alt="subredditProfile" id="subredditProfile" />
-        <div class="d-flex flex-column">
-          <div class="d-flex ms-2">
-            <span id="post-subreddit">m/subreddit</span>
-            <span class="ms-1" id="post-date">5 hr. ago</span>
-          </div>
-          <a href="/user/<%=feed.author.id%>" class="ms-2 text-decoration-none text-white" id="username">
-            <%=feed.author.username%>
-          </a>
+        <div class="d-flex justify-content-between">
+            <div id="start" class="d-flex align-items-center justify-content-start">
+                <img class="col-4" src="/assets/profile.jpg" alt="subredditProfile" id="subredditProfile" />
+                <div class="d-flex flex-column">
+                    <div class="d-flex ms-2">
+                        <span id="post-subreddit">m/subreddit</span>
+                        <span class="ms-1" id="post-date">5 hr. ago</span>
+                    </div>
+                    <a href="/user/<%=feed.author.id%>" class="ms-2 text-decoration-none text-white" id="username">
+                        <%=feed.author.username%>
+                    </a>
+                </div>
+            </div>
+            <div id="end">
+                <!--create a toggle for below options-->
+                <!--<div class="d-flex">-->
+                <!--<a href="/" class="btn btn-secondary m-2">Back</a>-->
+                <!--<% if(isOwner) { %>-->
+                <!--<a href="/m/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a>-->
+                <!--<form action="/m/<%=feed.id%>?_method=DELETE" method="POST">-->
+                <!--<button type="submit" class="btn btn-danger m-2">Delete</button>-->
+                <!--</form>-->
+                <!--<% } %>-->
+                <!--</div>-->
+                <button class="btn text-white">...</button>
+            </div>
         </div>
-        <div id="end">
-            <!--create a toggle for below options-->
-            <!--<div class="d-flex">-->
-            <!--<a href="/" class="btn btn-secondary m-2">Back</a>-->
-            <!--<% if(isOwner) { %>-->
-            <!--<a href="/m/<%=feed.id%>/edit" class="btn btn-warning m-2">Edit</a>-->
-            <!--<form action="/m/<%=feed.id%>?_method=DELETE" method="POST">-->
-            <!--<button type="submit" class="btn btn-danger m-2">Delete</button>-->
-            <!--</form>-->
-            <!--<% } %>-->
-            <!--</div>-->
-            <button class="btn text-white">...</button>
-        </div>
-    </div>
 
     <div class="text-white">
         <h2 class="fw-bold mt-1 mb-2"><%= feed.title %></h2>
