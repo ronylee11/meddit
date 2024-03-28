@@ -1,10 +1,10 @@
 <%layout('layouts/boilerplate')%>
 
 <div class="row">
-    <div class="col-2">
+    <div class="col-lg-2 d-none d-lg-block">
         <%-include('../components/sidebar')%>
     </div>
-    <div class="col-10">
+    <div class="col-12 col-lg-10">
         <div class="container min-vh-100 vw-100 text-white p-5">
             <% for (const feed of feeds) {%>
             <div class="card mb-2">
