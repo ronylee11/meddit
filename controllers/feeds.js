@@ -15,9 +15,9 @@ module.exports.index = async (req, res) => {
         { title: { $regex: search, $options: "i" } },
         { description: { $regex: search, $options: "i" } },
       ],
-    });
+    }).sort({ _id: -1 });
   } else {
-    feeds = await Feed.find({});
+    feeds = await Feed.find({}).sort({ _id: -1 });
   }
 
   res.render("feeds/index", {
