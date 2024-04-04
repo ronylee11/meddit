@@ -1,16 +1,20 @@
 <%layout('layouts/boilerplate')%>
 
-<div class="row w-100">
+<div class="row w-100 p-0 m-0">
     <div class="col-lg-2 d-none d-lg-block border-end border-color p-0">
         <%-include('../components/sidebar')%>
     </div>
-    <div class="col-12 col-lg-10 min-vh-100 text-white p-5">
+    <div class="col-12 col-lg-10 min-vh-100 text-white mt-5 p-0">
         <% for (const feed of feeds) {%>
-        <div class="card mb-2">
-            <div class="card-body bg-secondary-subtle">
-                <h5 class="card-title"><%= feed.title %></h5>
-                <p class="card-text"><%= feed.description %></p>
-                <a href="/m/<%= feed.id %>" class="btn btn-primary">Go somewhere</a>
+        <div id="feed-border" class="border-top border-bottom border-color my-1">
+            <div id="card" class="mt-2 px-3 pb-2">
+                <div id="post-owner" class="d-flex align-items-center justify-content-start">
+                    <img src="/assets/profile.jpg" alt="profile" id="user-profile">
+                    <span id="user-id"><%=  %></span>
+                </div>
+                    <h5 class="fw-bold"><%= feed.title %></h5>
+                    <p class=""><%= feed.description %></p>
+                    <a href="/m/<%= feed.id %>" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
         <% } %>

@@ -6,6 +6,15 @@
   --search-bar-background-color: #223237;
 }
 
+::placeholder {
+    color: #526368;
+    opacity: 1;
+}
+
+::-ms-input-placeholder {
+    color: #526368;
+}
+
 .navbar-dark {
   background-color: var(--primary-background-color);
 }
