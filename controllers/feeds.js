@@ -66,15 +66,19 @@ module.exports.new = (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
-  const feed = new Feed(req.body);
-  feed.author = req.user._id;
-  await feed.save();
+    if (!req.isAuthenticated()) {
+        req.flash("error", "Please Login!");
+        res.redirect("/login");
+    } else {
+        const feed = new Feed(req.body);
+        feed.author = req.user._id;
+        await feed.save();
 
-  res.redirect("/");
+        res.redirect("/");
+    }
 };
 
 module.exports.upvotefeed = async (req, res) => {
-
   if(req?.user){
     const feedUpVoted = await Feed.find({_id: req.params.id, upvotes: req.user._id});
     const feedDownVoted = await Feed.find({_id: req.params.id, downvotes: req.user._id});
