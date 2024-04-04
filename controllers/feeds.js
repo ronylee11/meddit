@@ -57,7 +57,12 @@ module.exports.destroy = async (req, res) => {
 };
 
 module.exports.new = (req, res) => {
-  res.render("feeds/new", { isLoggedIn: req.isAuthenticated()});
+  if (!req.isAuthenticated()) {
+      req.flash("error", "Please Login!");
+      res.redirect("/login");
+  } else {
+      res.render("feeds/new", { isLoggedIn: req.isAuthenticated()});
+  }
 };
 
 module.exports.create = async (req, res) => {
