@@ -146,6 +146,7 @@ table {
   --search-bar-background-color: #223237;
   --border-lines-color: #3c4345;
   --sidebar-hover-color: #1a282d;
+  --subreddit-font-color: #b8c5c9;
 }
 
 body {
@@ -181,4 +182,18 @@ body {
 
 #user-profile {
     width: 25px;
+}
+
+#post-subreddit, #post-last-visit {
+    font-size: 10px;
+    color: var(--subreddit-font-color);
+}
+
+#feed-title {
+    font-size: 14px;
+}
+
+#feed-description {
+    font-size: 12px;
+    color: var(--subreddit-font-color);
 }

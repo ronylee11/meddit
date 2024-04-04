@@ -10,11 +10,12 @@
             <div id="card" class="mt-2 px-3 pb-2">
                 <div id="post-owner" class="d-flex align-items-center justify-content-start">
                     <img src="/assets/profile.jpg" alt="profile" id="user-profile">
-                    <span id="user-id"><%=  %></span>
+                    <span id="post-subreddit" class="ms-1 fw-bold">m/programmer</span>
+                    <span id="post-last-visit" class="ms-2">• 8 hr. ago</span>
                 </div>
-                    <h5 class="fw-bold"><%= feed.title %></h5>
-                    <p class=""><%= feed.description %></p>
-                    <a href="/m/<%= feed.id %>" class="btn btn-primary">Go somewhere</a>
+                <h5 id="feed-title" class="fw-bold mt-2"><%= feed.title %></h5>
+                <p id="feed-description" class="my-1"><%= feed.description %></p>
+                <a href="/m/<%= feed.id %>" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
         <% } %>
