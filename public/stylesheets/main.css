@@ -13,6 +13,7 @@
   --border-lines-color: #3c4345;
   --sidebar-hover-color: #1a282d;
   --subreddit-font-color: #b8c5c9;
+  --post-hover-color: #141f23;
 }
 
 body {
@@ -42,8 +43,8 @@ body {
   min-height: calc(100vh - 56px); /*56px is the height of the navbar*/
 }
 
-#card {
-    background-color: var(--primary-background-color);
+#feed-post:hover {
+    background-color: var(--post-hover-color);
 }
 
 #user-profile {
