@@ -97,7 +97,7 @@ module.exports.upvotefeed = async (req, res) => {
       feed.upvotes.pull(req.user);   
     }
     feed.save();
-    res.redirect(`/m/${req.params.id}`);
+    res.redirect(req.get('referer'));
   }
   else{
     req.flash("error", "Please Login!");
@@ -128,7 +128,7 @@ module.exports.downvotefeed = async (req, res) => {
       feed.downvotes.pull(req.user);   
     }
     feed.save();
-    res.redirect(`/m/${req.params.id}`);
+    res.redirect(req.get('referer'));
   }
   else{
     req.flash("error", "Please Login!");
