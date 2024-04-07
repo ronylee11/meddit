@@ -1,8 +1,16 @@
-li {
+#navlinks li {
     padding: 20px 50px;
 }
 
-li:hover {
+.community-container {
+    padding: 10px 40px;
+}
+
+#navlinks li:hover, .community-container:hover {
     background-color: var(--sidebar-hover-color);
     border-radius: 20px;
+}
+
+#communities {
+    font-size: 0.8em;
 }
