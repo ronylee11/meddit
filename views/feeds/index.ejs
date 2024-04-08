@@ -16,9 +16,9 @@
                         <span id="post-last-visit" class="ms-2">• 8 hr. ago</span>
                     </div>
                     <h5 id="feed-title" class="fw-bold mt-2 text-white"><%= feed.title %></h5>
-                    <p id="feed-description" class="my-1"><%= feed.description %></p>
+                    <p id="feed-description" class="my-2"><%= feed.description %></p>
 
-                    <div class="d-flex align-items-center justify-content-start">
+                    <div class="d-flex align-items-center justify-content-start mt-2">
                         <div id="votes" class="border rounded me-2 p-1 d-flex">
                             <form action="/m/<%=feed.id%>/upvotefeed" method="post">
                                 <button class="text-decoration-none border-0 p-0 text-white" id="upvote" >
