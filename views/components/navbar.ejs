@@ -96,14 +96,14 @@
     <div class="container">
       <ul class="navbar-nav">
         <% if (!isLoggedIn) { %>
-        <li class="nav-item">
+        <li class="nav-item" id="nav-login">
           <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/register">Register</a>
         </li>
         <% } else {%>
-        <li class="nav-item">
+        <li class="nav-item" id="nav-logout">
           <a class="nav-link" href="/logout">Logout</a>
         </li>
         <% } %>

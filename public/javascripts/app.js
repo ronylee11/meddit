@@ -48,7 +48,32 @@ const profileWindow = function() {
         floatingWindow.style.zIndex = "100";
         floatingWindow.style.padding = "10px";
         floatingWindow.style.overflow = "auto";
-        floatingWindow.innerHTML = "<ul><li><a href='/user' >Profile</a></li></ul>";
+        floatingWindow.appendChild(document.createElement("ul"));
+        floatingWindow.firstChild.appendChild(document.createElement("li"));
+        floatingWindow.firstChild.firstChild.className = "mb-2";
+        floatingWindow.firstChild.firstChild.appendChild(document.createElement("a"));
+        floatingWindow.firstChild.firstChild.firstChild.href = "/user";
+        floatingWindow.firstChild.firstChild.firstChild.className = "text-decoration-none text-white";
+        floatingWindow.firstChild.firstChild.firstChild.innerHTML = "Profile";
+
+
+        // create a logout button
+        // if user is logged in, show logout button
+        // else, show login button
+        if (document.querySelector("#nav-logout")) { // if log out button exists
+            floatingWindow.firstChild.appendChild(document.createElement("li"));
+            floatingWindow.firstChild.lastChild.appendChild(document.createElement("a"));
+            floatingWindow.firstChild.lastChild.firstChild.href = "/logout";
+            floatingWindow.firstChild.lastChild.firstChild.className = "text-decoration-none text-white";
+            floatingWindow.firstChild.lastChild.firstChild.innerHTML = "Logout";
+        } else {
+            floatingWindow.firstChild.appendChild(document.createElement("li"));
+            floatingWindow.firstChild.lastChild.appendChild(document.createElement("a"));
+            floatingWindow.firstChild.lastChild.firstChild.href = "/login";
+            floatingWindow.firstChild.lastChild.firstChild.className = "text-decoration-none text-white";
+            floatingWindow.firstChild.lastChild.firstChild.innerHTML = "Login";
+        }
+
         document.body.appendChild(floatingWindow);
     }
 }
