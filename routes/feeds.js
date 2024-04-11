@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const feedController = require("../controllers/feeds");
+const { isLoggedIn } = require("../middleware");
 
 router
     .get("/", feedController.index)
@@ -11,7 +12,7 @@ router
 
 router
     .get("/m/:id/edit", feedController.edit)
-    .post("/m/:id/comment", feedController.comment)
+    .post("/m/:id/comment", isLoggedIn, feedController.comment)
     .post("/m/:id/upvotefeed", feedController.upvotefeed)
     .post("/m/:id/downvotefeed", feedController.downvotefeed)
     .post("/m/:feedid/:id/upvotecomment", feedController.upvotecomment)

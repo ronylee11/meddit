@@ -141,8 +141,7 @@ module.exports.downvotefeed = async (req, res) => {
 //Comment
 module.exports.comment = async (req, res) => {
   const feed = await Feed.findById(req.params.id);
-  if(req?.user){
-    if(req?.body.comment.trim() !== ""){
+  if(req?.body.comment.trim() !== ""){
     const comment = new Comment({
       author: req.user,
       description: req.body.comment,
@@ -154,11 +153,6 @@ module.exports.comment = async (req, res) => {
   }
   else{
     req.flash("error", "Write something!");
-  }
-  }
-  else{
-    req.flash("error", "Please Login!");//Redirect to login?
-    res.redirect("/login");
   }
   res.redirect(`/m/${req.params.id}`);
 }
