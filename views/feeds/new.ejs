@@ -2,13 +2,25 @@
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100" >
     <div class="border rounded p-2">
-        <form action="/" method="post">
-            <label for="title">Title: </label>
-            <input type="text" name="title" value="" />
-            <br />
-            <label for="description">Description: </label>
-            <input type="text" name="description" value="" />
-            <br />
+        <form action="/" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <div>
+                <label for="title" class="form-label mb-2">Title: </label>
+                <input type="text" name="title" value="" class="form-control" required/>
+            </div>
+            <div class="my-2">
+                <label for="description" class="form-label mb-2">Description: </label>
+                <input type="text" name="description" value="" class="form-control" required/>
+            </div>
+            <div class="mb-2">
+                <label class="form-label" for="image">Image</label>
+                <input
+                        class="form-control"
+                        type="file"
+                        id="image"
+                        name="image"
+                        />
+            </div>
+
             <a href="/" class="btn btn-secondary">Back</a>
             <button type="submit" class="btn btn-warning">Post</button>
         </form>
