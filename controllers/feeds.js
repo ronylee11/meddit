@@ -72,6 +72,7 @@ module.exports.create = async (req, res) => {
     } else {
         const feed = new Feed(req.body);
         feed.author = req.user._id;
+        feed.image = req.file.path;
         await feed.save();
 
         res.redirect("/");

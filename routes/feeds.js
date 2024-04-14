@@ -2,10 +2,18 @@ const express = require("express");
 const router = express.Router();
 const feedController = require("../controllers/feeds");
 const { isLoggedIn } = require("../middleware");
+const multer = require("multer");
+
+const storage = multer.diskStorage ({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/')
+    },
+});
+const upload = multer({ storage });
 
 router
     .get("/", feedController.index)
-    .post("/", feedController.create)
+    .post("/", upload.single("image"), feedController.create)
 
 router
     .get("/new", feedController.new)

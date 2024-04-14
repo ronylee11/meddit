@@ -68,3 +68,7 @@ body {
 #upvote, #downvote {
     background-color: var(--primary-background-color);
 }
+
+#feed-image {
+    height: 400px;
+}

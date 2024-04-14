@@ -4,6 +4,7 @@ const { Schema, model: Model } = mongoose;
 const feedSchema = new Schema({
   userid: String,
   title: String,
+  image: String,
   description: String,
   upvotes: [{type: Schema.Types.ObjectId, ref: "User" }],
   downvotes: [{type: Schema.Types.ObjectId, ref: "User" }],
