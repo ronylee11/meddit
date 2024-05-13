@@ -1,10 +1,11 @@
 <%layout('layouts/boilerplate')%>
 
 <div class="row w-100 p-0 m-0">
-    <div class="col-lg-2 d-none d-lg-block border-end border-color p-0">
+    <div id="left-container" class="col-lg-2 d-none d-lg-block border-end border-color p-0">
         <%-include('../components/sidebar')%>
     </div>
-    <div class="col-12 col-lg-10 min-vh-100 text-white mt-5 p-0">
+    <div id="mid-container" class="col-12 col-lg-8 min-vh-100 text-white mt-5 p-0">
+        <div class="px-5">
         <% for (const feed of feeds) {%>
         <div id="feed-border" class="border-top border-bottom border-color my-1">
             <div id="feed-post" class="mt-2 px-3 pb-2">
@@ -86,5 +87,9 @@
             </div>
         </div>
         <% } %>
+        </div>
+    </div>
+    <div id="right-container" class="col-lg-2 d-none d-lg-block border-end border-color p-0">
+        <p>Hello</p>
     </div>
 </div>
