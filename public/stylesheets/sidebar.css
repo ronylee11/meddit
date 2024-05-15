@@ -4,6 +4,7 @@ li {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 0.8em;
 }
 
 li:hover {
@@ -11,14 +12,10 @@ li:hover {
     border-radius: 20px;
 }
 
-#communities {
-    font-size: 0.8em;
-}
-
-#custom-feed {
-    font-size: 0.8em;
-}
-
 #sidebar {
     overflow: auto;
+}
+
+.inverse {
+    filter: invert(100%);
 }
