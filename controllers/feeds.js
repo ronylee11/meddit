@@ -72,7 +72,9 @@ module.exports.create = async (req, res) => {
     } else {
         const feed = new Feed(req.body);
         feed.author = req.user._id;
-        feed.image = req.file.path;
+        try {
+            feed.image = req.file.path;
+        } catch (e) {} // dont catch anything
         await feed.save();
 
         res.redirect("/");
