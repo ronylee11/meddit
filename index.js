@@ -19,6 +19,7 @@ const feedRoutes = require("./routes/feeds");
 const apiRoutes = require("./routes/apis");
 
 const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/Meddit"; // 27017 is the default mongodb port
+const port = 3000;
 
 mongoose.set("strictQuery", false); // disable deprecation warning
 mongoose.connect(dbUrl);
@@ -85,13 +86,12 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use("/", feedRoutes);
 
 app.use("/", userRoutes);
 
 app.use("/api", apiRoutes);
 
-app.listen(3000, () => {
-  console.log("App is running on 3000!");
+app.listen(port, () => {
+  console.log(`App is running on ${port}!`);
 });
